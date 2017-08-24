@@ -573,7 +573,7 @@ docker exec <container_id> functest testcase run doctor
 
 ```shell
 # unset `down`
-nova service‐force‐down ‐‐unset overcloud‐novacompute‐2.opnfvlf.org novacompute
+nova service‐force‐down ‐‐unset overcloud‐novacompute‐2.opnfvlf.org nova-compute
 # set `down`
 nova service‐force‐down ‐‐set overcloud‐novacompute‐2.opnfvlf.org nova‐compute
 ```
