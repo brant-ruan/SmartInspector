@@ -571,7 +571,28 @@ X-Lite <-> Clearwater <-> X-Lite
 
 You can download `X-Lite` from http://www.counterpath.com/x-lite-download/.
 
-[Remain]
+```
+Information needed:
+
+- base DNS name: opnfv.clearwater (as <domain>)
+- Ellis URL: use IP
+- sign up as a new user using the signup code("secret")
+- then take down the number(as <username>) and the password(as <password>)
+
+Configuration on SIP Client:
+
+SIP Username       | <username>
+SIP Password       | <password>
+SIP domain         | <domain>
+Authorization Name | <username>@<domain>
+Transport          | TCP
+STUN/TURN/ICE      |
+    Enabled        | true
+    Server         | <domain>
+    username       | <username>@<domain>
+    Password       | <password>
+    Use rport      | true (this is required if your SIP client is behind a NAT)
+```
 
 ## 7 Summary
 
