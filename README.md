@@ -531,7 +531,7 @@ Then create and launch deployment. The easiest way to create and launch deployme
 
 (Maybe you should use `socat` or something like it to forward the Web UI out to the real server).
 
-Note that the specified version must be satisfied otherwise the process may won’t work.
+Note that the specified version must be satisfied otherwise the process might not work.
 
 ## 5 Doctor Tests
 
