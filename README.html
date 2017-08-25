@@ -1,0 +1,1686 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><style>body {
+  max-width: 980px;
+  border: 1px solid #ddd;
+  outline: 1300px solid #fff;
+  margin: 16px auto;
+}
+
+body .markdown-body
+{
+  padding: 45px;
+}
+
+@font-face {
+  font-family: fontawesome-mini;
+  src: url(data:font/woff;charset=utf-8;base64,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) format('woff');
+}
+
+@font-face {
+  font-family: octicons-anchor;
+  src: url(data:font/woff;charset=utf-8;base64,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) format('woff');
+}
+
+.markdown-body {
+  font-family: sans-serif;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  color: #333333;
+  overflow: hidden;
+  font-family: "Helvetica Neue", Helvetica, "Segoe UI", Arial, freesans, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  word-wrap: break-word;
+}
+
+.markdown-body a {
+  background: transparent;
+}
+
+.markdown-body a:active,
+.markdown-body a:hover {
+  outline: 0;
+}
+
+.markdown-body b,
+.markdown-body strong {
+  font-weight: bold;
+}
+
+.markdown-body mark {
+  background: #ff0;
+  color: #000;
+  font-style: italic;
+  font-weight: bold;
+}
+
+.markdown-body sub,
+.markdown-body sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+.markdown-body sup {
+  top: -0.5em;
+}
+.markdown-body sub {
+  bottom: -0.25em;
+}
+
+.markdown-body h1 {
+  font-size: 2em;
+  margin: 0.67em 0;
+}
+
+.markdown-body img {
+  border: 0;
+}
+
+.markdown-body hr {
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  height: 0;
+}
+
+.markdown-body pre {
+  overflow: auto;
+}
+
+.markdown-body code,
+.markdown-body kbd,
+.markdown-body pre,
+.markdown-body samp {
+  font-family: monospace, monospace;
+  font-size: 1em;
+}
+
+.markdown-body input {
+  color: inherit;
+  font: inherit;
+  margin: 0;
+}
+
+.markdown-body html input[disabled] {
+  cursor: default;
+}
+
+.markdown-body input {
+  line-height: normal;
+}
+
+.markdown-body input[type="checkbox"] {
+  box-sizing: border-box;
+  padding: 0;
+}
+
+.markdown-body table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.markdown-body td,
+.markdown-body th {
+  padding: 0;
+}
+
+.markdown-body .codehilitetable {
+  border: 0;
+  border-spacing: 0;
+}
+
+.markdown-body .codehilitetable tr {
+  border: 0;
+}
+
+.markdown-body .codehilitetable pre,
+.markdown-body .codehilitetable div.codehilite {
+  margin: 0;
+}
+
+.markdown-body .linenos,
+.markdown-body .code,
+.markdown-body .codehilitetable td {
+  border: 0;
+  padding: 0;
+}
+
+.markdown-body td:not(.linenos) .linenodiv {
+  padding: 0 !important;
+}
+
+.markdown-body .code {
+  width: 100%;
+}
+
+.markdown-body .linenos div pre,
+.markdown-body .linenodiv pre,
+.markdown-body .linenodiv {
+  border: 0;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  -webkit-border-top-left-radius: 3px;
+  -webkit-border-bottom-left-radius: 3px;
+  -moz-border-radius-topleft: 3px;
+  -moz-border-radius-bottomleft: 3px;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+
+.markdown-body .code div pre,
+.markdown-body .code div {
+  border: 0;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  -webkit-border-top-right-radius: 3px;
+  -webkit-border-bottom-right-radius: 3px;
+  -moz-border-radius-topright: 3px;
+  -moz-border-radius-bottomright: 3px;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+.markdown-body * {
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.markdown-body input {
+  font: 13px Helvetica, arial, freesans, clean, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+  line-height: 1.4;
+}
+
+.markdown-body a {
+  color: #4183c4;
+  text-decoration: none;
+}
+
+.markdown-body a:hover,
+.markdown-body a:focus,
+.markdown-body a:active {
+  text-decoration: underline;
+}
+
+.markdown-body hr {
+  height: 0;
+  margin: 15px 0;
+  overflow: hidden;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.markdown-body hr:before,
+.markdown-body hr:after {
+  display: table;
+  content: " ";
+}
+
+.markdown-body hr:after {
+  clear: both;
+}
+
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4,
+.markdown-body h5,
+.markdown-body h6 {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  line-height: 1.1;
+}
+
+.markdown-body h1 {
+  font-size: 30px;
+}
+
+.markdown-body h2 {
+  font-size: 21px;
+}
+
+.markdown-body h3 {
+  font-size: 16px;
+}
+
+.markdown-body h4 {
+  font-size: 14px;
+}
+
+.markdown-body h5 {
+  font-size: 12px;
+}
+
+.markdown-body h6 {
+  font-size: 11px;
+}
+
+.markdown-body blockquote {
+  margin: 0;
+}
+
+.markdown-body ul,
+.markdown-body ol {
+  padding: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.markdown-body ol ol,
+.markdown-body ul ol {
+  list-style-type: lower-roman;
+}
+
+.markdown-body ul ul ol,
+.markdown-body ul ol ol,
+.markdown-body ol ul ol,
+.markdown-body ol ol ol {
+  list-style-type: lower-alpha;
+}
+
+.markdown-body dd {
+  margin-left: 0;
+}
+
+.markdown-body code,
+.markdown-body pre,
+.markdown-body samp {
+  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  font-size: 12px;
+}
+
+.markdown-body pre {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.markdown-body kbd {
+  background-color: #e7e7e7;
+  background-image: -moz-linear-gradient(#fefefe, #e7e7e7);
+  background-image: -webkit-linear-gradient(#fefefe, #e7e7e7);
+  background-image: linear-gradient(#fefefe, #e7e7e7);
+  background-repeat: repeat-x;
+  border-radius: 2px;
+  border: 1px solid #cfcfcf;
+  color: #000;
+  padding: 3px 5px;
+  line-height: 10px;
+  font: 11px Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  display: inline-block;
+}
+
+.markdown-body>*:first-child {
+  margin-top: 0 !important;
+}
+
+.markdown-body>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+.markdown-body .headeranchor-link {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  display: block;
+  padding-right: 6px;
+  padding-left: 30px;
+  margin-left: -30px;
+}
+
+.markdown-body .headeranchor-link:focus {
+  outline: none;
+}
+
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4,
+.markdown-body h5,
+.markdown-body h6 {
+  position: relative;
+  margin-top: 1em;
+  margin-bottom: 16px;
+  font-weight: bold;
+  line-height: 1.4;
+}
+
+.markdown-body h1 .headeranchor,
+.markdown-body h2 .headeranchor,
+.markdown-body h3 .headeranchor,
+.markdown-body h4 .headeranchor,
+.markdown-body h5 .headeranchor,
+.markdown-body h6 .headeranchor {
+  display: none;
+  color: #000;
+  vertical-align: middle;
+}
+
+.markdown-body h1:hover .headeranchor-link,
+.markdown-body h2:hover .headeranchor-link,
+.markdown-body h3:hover .headeranchor-link,
+.markdown-body h4:hover .headeranchor-link,
+.markdown-body h5:hover .headeranchor-link,
+.markdown-body h6:hover .headeranchor-link {
+  height: 1em;
+  padding-left: 8px;
+  margin-left: -30px;
+  line-height: 1;
+  text-decoration: none;
+}
+
+.markdown-body h1:hover .headeranchor-link .headeranchor,
+.markdown-body h2:hover .headeranchor-link .headeranchor,
+.markdown-body h3:hover .headeranchor-link .headeranchor,
+.markdown-body h4:hover .headeranchor-link .headeranchor,
+.markdown-body h5:hover .headeranchor-link .headeranchor,
+.markdown-body h6:hover .headeranchor-link .headeranchor {
+  display: inline-block;
+}
+
+.markdown-body h1 {
+  padding-bottom: 0.3em;
+  font-size: 2.25em;
+  line-height: 1.2;
+  border-bottom: 1px solid #eee;
+}
+
+.markdown-body h2 {
+  padding-bottom: 0.3em;
+  font-size: 1.75em;
+  line-height: 1.225;
+  border-bottom: 1px solid #eee;
+}
+
+.markdown-body h3 {
+  font-size: 1.5em;
+  line-height: 1.43;
+}
+
+.markdown-body h4 {
+  font-size: 1.25em;
+}
+
+.markdown-body h5 {
+  font-size: 1em;
+}
+
+.markdown-body h6 {
+  font-size: 1em;
+  color: #777;
+}
+
+.markdown-body p,
+.markdown-body blockquote,
+.markdown-body ul,
+.markdown-body ol,
+.markdown-body dl,
+.markdown-body table,
+.markdown-body pre,
+.markdown-body .admonition {
+  margin-top: 0;
+  margin-bottom: 16px;
+}
+
+.markdown-body hr {
+  height: 4px;
+  padding: 0;
+  margin: 16px 0;
+  background-color: #e7e7e7;
+  border: 0 none;
+}
+
+.markdown-body ul,
+.markdown-body ol {
+  padding-left: 2em;
+}
+
+.markdown-body ul ul,
+.markdown-body ul ol,
+.markdown-body ol ol,
+.markdown-body ol ul {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.markdown-body li>p {
+  margin-top: 16px;
+}
+
+.markdown-body dl {
+  padding: 0;
+}
+
+.markdown-body dl dt {
+  padding: 0;
+  margin-top: 16px;
+  font-size: 1em;
+  font-style: italic;
+  font-weight: bold;
+}
+
+.markdown-body dl dd {
+  padding: 0 16px;
+  margin-bottom: 16px;
+}
+
+.markdown-body blockquote {
+  padding: 0 15px;
+  color: #777;
+  border-left: 4px solid #ddd;
+}
+
+.markdown-body blockquote>:first-child {
+  margin-top: 0;
+}
+
+.markdown-body blockquote>:last-child {
+  margin-bottom: 0;
+}
+
+.markdown-body table {
+  display: block;
+  width: 100%;
+  overflow: auto;
+  word-break: normal;
+  word-break: keep-all;
+}
+
+.markdown-body table th {
+  font-weight: bold;
+}
+
+.markdown-body table th,
+.markdown-body table td {
+  padding: 6px 13px;
+  border: 1px solid #ddd;
+}
+
+.markdown-body table tr {
+  background-color: #fff;
+  border-top: 1px solid #ccc;
+}
+
+.markdown-body table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+
+.markdown-body img {
+  max-width: 100%;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.markdown-body code,
+.markdown-body samp {
+  padding: 0;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+  margin: 0;
+  font-size: 85%;
+  background-color: rgba(0,0,0,0.04);
+  border-radius: 3px;
+}
+
+.markdown-body code:before,
+.markdown-body code:after {
+  letter-spacing: -0.2em;
+  content: "\00a0";
+}
+
+.markdown-body pre>code {
+  padding: 0;
+  margin: 0;
+  font-size: 100%;
+  word-break: normal;
+  white-space: pre;
+  background: transparent;
+  border: 0;
+}
+
+.markdown-body .codehilite {
+  margin-bottom: 16px;
+}
+
+.markdown-body .codehilite pre,
+.markdown-body pre {
+  padding: 16px;
+  overflow: auto;
+  font-size: 85%;
+  line-height: 1.45;
+  background-color: #f7f7f7;
+  border-radius: 3px;
+}
+
+.markdown-body .codehilite pre {
+  margin-bottom: 0;
+  word-break: normal;
+}
+
+.markdown-body pre {
+  word-wrap: normal;
+}
+
+.markdown-body pre code {
+  display: inline;
+  max-width: initial;
+  padding: 0;
+  margin: 0;
+  overflow: initial;
+  line-height: inherit;
+  word-wrap: normal;
+  background-color: transparent;
+  border: 0;
+}
+
+.markdown-body pre code:before,
+.markdown-body pre code:after {
+  content: normal;
+}
+
+/* Admonition */
+.markdown-body .admonition {
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  position: relative;
+  border-radius: 3px;
+  border: 1px solid #e0e0e0;
+  border-left: 6px solid #333;
+  padding: 10px 10px 10px 30px;
+}
+
+.markdown-body .admonition table {
+  color: #333;
+}
+
+.markdown-body .admonition p {
+  padding: 0;
+}
+
+.markdown-body .admonition-title {
+  font-weight: bold;
+  margin: 0;
+}
+
+.markdown-body .admonition>.admonition-title {
+  color: #333;
+}
+
+.markdown-body .attention>.admonition-title {
+  color: #a6d796;
+}
+
+.markdown-body .caution>.admonition-title {
+  color: #d7a796;
+}
+
+.markdown-body .hint>.admonition-title {
+  color: #96c6d7;
+}
+
+.markdown-body .danger>.admonition-title {
+  color: #c25f77;
+}
+
+.markdown-body .question>.admonition-title {
+  color: #96a6d7;
+}
+
+.markdown-body .note>.admonition-title {
+  color: #d7c896;
+}
+
+.markdown-body .admonition:before,
+.markdown-body .attention:before,
+.markdown-body .caution:before,
+.markdown-body .hint:before,
+.markdown-body .danger:before,
+.markdown-body .question:before,
+.markdown-body .note:before {
+  font: normal normal 16px fontawesome-mini;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  line-height: 1.5;
+  color: #333;
+  position: absolute;
+  left: 0;
+  top: 0;
+  padding-top: 10px;
+  padding-left: 10px;
+}
+
+.markdown-body .admonition:before {
+  content: "\f056\00a0";
+  color: 333;
+}
+
+.markdown-body .attention:before {
+  content: "\f058\00a0";
+  color: #a6d796;
+}
+
+.markdown-body .caution:before {
+  content: "\f06a\00a0";
+  color: #d7a796;
+}
+
+.markdown-body .hint:before {
+  content: "\f05a\00a0";
+  color: #96c6d7;
+}
+
+.markdown-body .danger:before {
+  content: "\f057\00a0";
+  color: #c25f77;
+}
+
+.markdown-body .question:before {
+  content: "\f059\00a0";
+  color: #96a6d7;
+}
+
+.markdown-body .note:before {
+  content: "\f040\00a0";
+  color: #d7c896;
+}
+
+.markdown-body .admonition::after {
+  content: normal;
+}
+
+.markdown-body .attention {
+  border-left: 6px solid #a6d796;
+}
+
+.markdown-body .caution {
+  border-left: 6px solid #d7a796;
+}
+
+.markdown-body .hint {
+  border-left: 6px solid #96c6d7;
+}
+
+.markdown-body .danger {
+  border-left: 6px solid #c25f77;
+}
+
+.markdown-body .question {
+  border-left: 6px solid #96a6d7;
+}
+
+.markdown-body .note {
+  border-left: 6px solid #d7c896;
+}
+
+.markdown-body .admonition>*:first-child {
+  margin-top: 0 !important;
+}
+
+.markdown-body .admonition>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* progress bar*/
+.markdown-body .progress {
+  display: block;
+  width: 300px;
+  margin: 10px 0;
+  height: 24px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  background-color: #ededed;
+  position: relative;
+  box-shadow: inset -1px 1px 3px rgba(0, 0, 0, .1);
+}
+
+.markdown-body .progress-label {
+  position: absolute;
+  text-align: center;
+  font-weight: bold;
+  width: 100%; margin: 0;
+  line-height: 24px;
+  color: #333;
+  text-shadow: 1px 1px 0 #fefefe, -1px -1px 0 #fefefe, -1px 1px 0 #fefefe, 1px -1px 0 #fefefe, 0 1px 0 #fefefe, 0 -1px 0 #fefefe, 1px 0 0 #fefefe, -1px 0 0 #fefefe, 1px 1px 2px #000;
+  -webkit-font-smoothing: antialiased !important;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.markdown-body .progress-bar {
+  height: 24px;
+  float: left;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  background-color: #96c6d7;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .5), inset 0 -1px 0 rgba(0, 0, 0, .1);
+  background-size: 30px 30px;
+  background-image: -webkit-linear-gradient(
+    135deg, rgba(255, 255, 255, .4) 27%,
+    transparent 27%,
+    transparent 52%, rgba(255, 255, 255, .4) 52%,
+    rgba(255, 255, 255, .4) 77%,
+    transparent 77%, transparent
+  );
+  background-image: -moz-linear-gradient(
+    135deg,
+    rgba(255, 255, 255, .4) 27%, transparent 27%,
+    transparent 52%, rgba(255, 255, 255, .4) 52%,
+    rgba(255, 255, 255, .4) 77%, transparent 77%,
+    transparent
+  );
+  background-image: -ms-linear-gradient(
+    135deg,
+    rgba(255, 255, 255, .4) 27%, transparent 27%,
+    transparent 52%, rgba(255, 255, 255, .4) 52%,
+    rgba(255, 255, 255, .4) 77%, transparent 77%,
+    transparent
+  );
+  background-image: -o-linear-gradient(
+    135deg,
+    rgba(255, 255, 255, .4) 27%, transparent 27%,
+    transparent 52%, rgba(255, 255, 255, .4) 52%,
+    rgba(255, 255, 255, .4) 77%, transparent 77%,
+    transparent
+  );
+  background-image: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, .4) 27%, transparent 27%,
+    transparent 52%, rgba(255, 255, 255, .4) 52%,
+    rgba(255, 255, 255, .4) 77%, transparent 77%,
+    transparent
+  );
+}
+
+.markdown-body .progress-100plus .progress-bar {
+  background-color: #a6d796;
+}
+
+.markdown-body .progress-80plus .progress-bar {
+  background-color: #c6d796;
+}
+
+.markdown-body .progress-60plus .progress-bar {
+  background-color: #d7c896;
+}
+
+.markdown-body .progress-40plus .progress-bar {
+  background-color: #d7a796;
+}
+
+.markdown-body .progress-20plus .progress-bar {
+  background-color: #d796a6;
+}
+
+.markdown-body .progress-0plus .progress-bar {
+  background-color: #c25f77;
+}
+
+.markdown-body .candystripe-animate .progress-bar{
+  -webkit-animation: animate-stripes 3s linear infinite;
+  -moz-animation: animate-stripes 3s linear infinite;
+  animation: animate-stripes 3s linear infinite;
+}
+
+@-webkit-keyframes animate-stripes {
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: 60px 0;
+  }
+}
+
+@-moz-keyframes animate-stripes {
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: 60px 0;
+  }
+}
+
+@keyframes animate-stripes {
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: 60px 0;
+  }
+}
+
+.markdown-body .gloss .progress-bar {
+  box-shadow:
+    inset 0 4px 12px rgba(255, 255, 255, .7),
+    inset 0 -12px 0 rgba(0, 0, 0, .05);
+}
+
+/* Multimarkdown Critic Blocks */
+.markdown-body .critic_mark {
+  background: #ff0;
+}
+
+.markdown-body .critic_delete {
+  color: #c82829;
+  text-decoration: line-through;
+}
+
+.markdown-body .critic_insert {
+  color: #718c00 ;
+  text-decoration: underline;
+}
+
+.markdown-body .critic_comment {
+  color: #8e908c;
+  font-style: italic;
+}
+
+.markdown-body .headeranchor {
+  font: normal normal 16px octicons-anchor;
+  line-height: 1;
+  display: inline-block;
+  text-decoration: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.headeranchor:before {
+  content: '\f05c';
+}
+
+.markdown-body .task-list-item {
+  list-style-type: none;
+}
+
+.markdown-body .task-list-item+.task-list-item {
+  margin-top: 3px;
+}
+
+.markdown-body .task-list-item input {
+  margin: 0 4px 0.25em -20px;
+  vertical-align: middle;
+}
+
+/* Media */
+@media only screen and (min-width: 480px) {
+  .markdown-body {
+    font-size:14px;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .markdown-body {
+    font-size:16px;
+  }
+}
+
+@media print {
+  .markdown-body * {
+    background: transparent !important;
+    color: black !important;
+    filter:none !important;
+    -ms-filter: none !important;
+  }
+
+  .markdown-body {
+    font-size:12pt;
+    max-width:100%;
+    outline:none;
+    border: 0;
+  }
+
+  .markdown-body a,
+  .markdown-body a:visited {
+    text-decoration: underline;
+  }
+
+  .markdown-body .headeranchor-link {
+    display: none;
+  }
+
+  .markdown-body a[href]:after {
+    content: " (" attr(href) ")";
+  }
+
+  .markdown-body abbr[title]:after {
+    content: " (" attr(title) ")";
+  }
+
+  .markdown-body .ir a:after,
+  .markdown-body a[href^="javascript:"]:after,
+  .markdown-body a[href^="#"]:after {
+    content: "";
+  }
+
+  .markdown-body pre {
+    white-space: pre;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+
+  .markdown-body pre,
+  .markdown-body blockquote {
+    border: 1px solid #999;
+    padding-right: 1em;
+    page-break-inside: avoid;
+  }
+
+  .markdown-body .progress,
+  .markdown-body .progress-bar {
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+  }
+
+  .markdown-body .progress {
+    border: 1px solid #ddd;
+  }
+
+  .markdown-body .progress-bar {
+    height: 22px;
+    border-right: 1px solid #ddd;
+  }
+
+  .markdown-body tr,
+  .markdown-body img {
+    page-break-inside: avoid;
+  }
+
+  .markdown-body img {
+    max-width: 100% !important;
+  }
+
+  .markdown-body p,
+  .markdown-body h2,
+  .markdown-body h3 {
+    orphans: 3;
+    widows: 3;
+  }
+
+  .markdown-body h2,
+  .markdown-body h3 {
+    page-break-after: avoid;
+  }
+}
+</style><title>README</title></head><body><article class="markdown-body"><div class="toc">
+<ul>
+<li><a href="#smart-inspector-all-in-one">Smart Inspector All in One</a><ul>
+<li><a href="#0-opnfv-apex-deployment">0 OPNFV Apex Deployment</a><ul>
+<li><a href="#00-deployment">00 Deployment</a></li>
+<li><a href="#01-nat">01 NAT</a></li>
+<li><a href="#02-dashboard">02 Dashboard</a></li>
+</ul>
+</li>
+<li><a href="#1-doctor-configurations">1 Doctor Configurations</a><ul>
+<li><a href="#10-monitor">10 Monitor</a><ul>
+<li><a href="#100-zabbix-agent">100 Zabbix Agent</a></li>
+<li><a href="#101-zabbix-server">101 Zabbix Server</a></li>
+<li><a href="#102-zabbix-alert-script">102 Zabbix Alert Script</a></li>
+</ul>
+</li>
+<li><a href="#11-inspector">11 Inspector</a><ul>
+<li><a href="#110-congress-doctor-driver">110 Congress Doctor Driver</a></li>
+<li><a href="#111-congress-policies">111 Congress Policies</a></li>
+</ul>
+</li>
+<li><a href="#12-controller">12 Controller</a><ul>
+<li><a href="#120-nova">120 Nova</a></li>
+<li><a href="#121-ceilometer">121 Ceilometer</a></li>
+<li><a href="#122-aodh">122 Aodh</a></li>
+</ul>
+</li>
+<li><a href="#13-diy-server">13 DIY Server</a><ul>
+<li><a href="#130-source-code">130 Source Code</a></li>
+</ul>
+</li>
+<li><a href="#14-tacker">14 Tacker</a></li>
+</ul>
+</li>
+<li><a href="#2-live-migration-configurations">2 Live Migration Configurations</a><ul>
+<li><a href="#20-ping">20 Ping</a></li>
+<li><a href="#21-vnc">21 VNC</a></li>
+<li><a href="#22-nfs-server">22 NFS Server</a></li>
+<li><a href="#23-nfs-client">23 NFS Client</a></li>
+<li><a href="#24-iptables">24 iptables</a></li>
+<li><a href="#25-uidgid">25 UID/GID</a></li>
+<li><a href="#26-evacuationmigration">26 Evacuation&amp;Migration</a></li>
+</ul>
+</li>
+<li><a href="#3-instance-creation">3 Instance Creation</a></li>
+<li><a href="#4-cloudifyclearwater-deployment">4 Cloudify&amp;Clearwater Deployment</a><ul>
+<li><a href="#40-cloudify-client">40 Cloudify Client</a></li>
+<li><a href="#41-cloudify-manager">41 Cloudify Manager</a></li>
+<li><a href="#42-clearwater">42 Clearwater</a></li>
+</ul>
+</li>
+<li><a href="#5-doctor-tests">5 Doctor Tests</a></li>
+<li><a href="#6-dial-test">6 Dial Test</a></li>
+<li><a href="#7-summary">7 Summary</a></li>
+<li><a href="#8-extras">8 Extras</a><ul>
+<li><a href="#80-nova-service-force-down">80 Nova Service Force Down</a></li>
+<li><a href="#81-reset-instances-state">81 Reset Instance&rsquo;s State</a></li>
+<li><a href="#82-migrateevacuate-commands">82 Migrate&amp;Evacuate Commands</a></li>
+<li><a href="#83-sync-configurations">83 Sync Configurations</a></li>
+<li><a href="#84-yardstick-test">84 Yardstick Test</a></li>
+<li><a href="#85-functest-test">85 Functest Test</a></li>
+<li><a href="#86-other-notes">86 Other Notes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<h1 id="smart-inspector-all-in-one"><a name="user-content-smart-inspector-all-in-one" href="#smart-inspector-all-in-one" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Smart Inspector All in One</h1>
+<h2 id="0-opnfv-apex-deployment"><a name="user-content-0-opnfv-apex-deployment" href="#0-opnfv-apex-deployment" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>0 OPNFV Apex Deployment</h2>
+<h3 id="00-deployment"><a name="user-content-00-deployment" href="#00-deployment" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>00 Deployment</h3>
+<pre><code class="shell"># on real server 192.168.32.20
+opnfv-clean
+cd /etc/opnfv-apex 
+screen -S apex_deploy_screen
+# in screen apex_deploy_screen
+opnfv-deploy -v --virtual-cpus 8 \
+    --virtual-default-ram 64 --virtual-compute-ram 96 \
+    -n network_settings.yaml -d os-nosdn-nofeature-ha.yaml --debug &gt; apex.log
+</code></pre>
+
+<h3 id="01-nat"><a name="user-content-01-nat" href="#01-nat" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>01 NAT</h3>
+<p>To make Internet accessible to VMs on Overcloud.</p>
+<pre><code class="shell"># on real server
+## turn on forward function
+sysctl net.ipv4.ip_forward=1
+iptables -t nat -A POSTROUTING -s 192.168.122.0/24 -j SNAT --to 192.168.32.20
+iptables -A FORWARD -m state --state ESTABLISHED,RELATED -j ACCEPT
+</code></pre>
+
+<h3 id="02-dashboard"><a name="user-content-02-dashboard" href="#02-dashboard" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>02 Dashboard</h3>
+<p>To visit dashboard from outside.</p>
+<pre><code class="shell"># on real server
+screen -S opnfv_dashboard
+# in screen
+## Note that this command may be harmful to iptables entries already existed
+socat tcp-l:10001,reuseaddr,fork tcp:192.168.37.18:80
+# 192.168.37.18 is the controller's IP
+## the firewalld may block the connections
+service firewalld stop
+</code></pre>
+
+<h2 id="1-doctor-configurations"><a name="user-content-1-doctor-configurations" href="#1-doctor-configurations" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>1 Doctor Configurations</h2>
+<h3 id="10-monitor"><a name="user-content-10-monitor" href="#10-monitor" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>10 Monitor</h3>
+<h4 id="100-zabbix-agent"><a name="user-content-100-zabbix-agent" href="#100-zabbix-agent" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>100 Zabbix Agent</h4>
+<p>[Remain]</p>
+<h4 id="101-zabbix-server"><a name="user-content-101-zabbix-server" href="#101-zabbix-server" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>101 Zabbix Server</h4>
+<p>[Remain]</p>
+<h4 id="102-zabbix-alert-script"><a name="user-content-102-zabbix-alert-script" href="#102-zabbix-alert-script" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>102 Zabbix Alert Script</h4>
+<blockquote>
+<p>See <a href="https://github.com/openstack/congress/blob/master/congress/datasources/doctor_driver.py">https://github.com/openstack/congress/blob/master/congress/datasources/doctor_driver.py</a> for details about doctor driver.<br />
+See <a href="https://www.zabbix.com/documentation/3.2/manual/config/notifications/media/script">https://www.zabbix.com/documentation/3.2/manual/config/notifications/media/script</a> for Zabbix details about alert script.<br />
+See <code>man curl</code> for bonus :)</p>
+</blockquote>
+<pre><code class="shell"># Doctor driver API
+PUT /v1/data‐sources/doctor/tables/events/rows
+</code></pre>
+
+<p>[Remain]</p>
+<h3 id="11-inspector"><a name="user-content-11-inspector" href="#11-inspector" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>11 Inspector</h3>
+<blockquote>
+<p>See <a href="http://docs.opnfv.org/en/stable-danube/submodules/doctor/docs/release/configguide/feature.configuration.html#doctor-inspector">http://docs.opnfv.org/en/stable-danube/submodules/doctor/docs/release/configguide/feature.configuration.html#doctor-inspector</a> for details.</p>
+</blockquote>
+<h4 id="110-congress-doctor-driver"><a name="user-content-110-congress-doctor-driver" href="#110-congress-doctor-driver" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>110 Congress Doctor Driver</h4>
+<pre><code class="shell">ssh heat-admin@192.0.2.x # ssh onto controller
+sudo -i
+vim /etc/congress/congress.conf
+# add doctor driver to Congress
+# then find the `drivers=...` entry
+# append `congress.datasources.doctor_driver.DoctorDriver` to it
+service openstack‐congress‐server restart
+</code></pre>
+
+<pre><code class="shell">source overcloudrc
+openstack congress datasource create doctor doctor
+</code></pre>
+
+<h4 id="111-congress-policies"><a name="user-content-111-congress-policies" href="#111-congress-policies" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>111 Congress Policies</h4>
+<p>Follow statements below and create policies needed.</p>
+<pre><code class="shell">openstack congress policy rule create \
+    ‐‐name host_down classification \
+    'host_down(host) :‐ doctor:events(hostname=host, type=&quot;compute.host.down&quot;, status=&quot;down&quot;)'
+</code></pre>
+
+<pre><code class="shell">openstack congress policy rule create \
+    ‐‐name active_instance_in_host classification \
+    'active_instance_in_host(vmid, host) :‐ nova:servers(id=vmid, host_name=host, status=&quot;ACTIVE&quot;)'
+</code></pre>
+
+<pre><code class="shell">openstack congress policy rule create \
+    ‐‐name host_force_down classification \
+    'execute[nova:services.force_down(host,  &quot;nova‐compute&quot;, &quot;True&quot;)] :‐ host_down(host)'
+</code></pre>
+
+<pre><code class="shell">openstack congress policy rule create \
+    ‐‐name error_vm_states classification \
+    'execute[nova:servers.reset_state(vmid, &quot;error&quot;)] :‐ host_down(host), active_instance_in_host(vmid, host)'
+</code></pre>
+
+<h3 id="12-controller"><a name="user-content-12-controller" href="#12-controller" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>12 Controller</h3>
+<blockquote>
+<p>See <a href="https://lingxiankong.github.io/2017-07-04.html">https://lingxiankong.github.io/2017-07-04.html</a> for details.<br />
+See <a href="https://docs.openstack.org/newton/config-reference/compute/config-options.html">https://docs.openstack.org/newton/config-reference/compute/config-options.html</a>, <a href="https://docs.openstack.org/nova/14.0.7/notifications.html">https://docs.openstack.org/nova/14.0.7/notifications.html</a> for details about Nova.<br />
+See <a href="https://docs.openstack.org/newton/config-reference/telemetry/samples/event_definitions.yaml.html">https://docs.openstack.org/newton/config-reference/telemetry/samples/event_definitions.yaml.html</a> for details about Ceilometer.<br />
+See <a href="https://docs.openstack.org/aodh/latest/contributor/event-alarm.html">https://docs.openstack.org/aodh/latest/contributor/event-alarm.html</a>, <a href="https://docs.openstack.org/aodh/latest/admin/telemetry-alarms.html#event-based-alarm">https://docs.openstack.org/aodh/latest/admin/telemetry-alarms.html#event-based-alarm</a>, <a href="https://github.com/openstack/aodh/blob/master/aodh/notifier/rest.py">https://github.com/openstack/aodh/blob/master/aodh/notifier/rest.py</a> for details about Aodh.</p>
+</blockquote>
+<pre><code class="shell">ssh heat-admin@192.0.2.x # ssh onto controller
+sudo -i
+</code></pre>
+
+<h4 id="120-nova"><a name="user-content-120-nova" href="#120-nova" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>120 Nova</h4>
+<pre><code class="shell">vim /etc/nova/nova.conf
+
+# ensure entries below
+notify_on_state_change=vm_and_task_state
+[oslo_messaging_notifications]
+driver=messagingv2
+topics=notifications
+</code></pre>
+
+<h4 id="121-ceilometer"><a name="user-content-121-ceilometer" href="#121-ceilometer" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>121 Ceilometer</h4>
+<pre><code class="shell">vim /etc/ceilometer/event_pipeline.yaml
+
+# add publishers &quot;notifier://?topic=alarm.all&quot;
+‐‐‐
+sources:
+    ‐ name: event_source
+        events:
+            ‐ &quot;*&quot;
+        sinks:
+            ‐ event_sink
+sinks:
+    ‐ name: event_sink
+        transformers:
+        publishers:
+            ‐ notifier://
+            ‐ notifier://?topic=alarm.all
+</code></pre>
+
+<pre><code class="shell"># restart ceilometer
+service openstack-ceilometer-notification restart
+service openstack-ceilometer-central restart
+</code></pre>
+
+<h4 id="122-aodh"><a name="user-content-122-aodh" href="#122-aodh" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>122 Aodh</h4>
+<pre><code class="shell"># configurations
+vim /etc/aodh/aodh.conf
+
+# by default the configurations are right; just ensure it
+[listener]
+event_alarm_topic = alarm.all
+</code></pre>
+
+<pre><code class="shell"># restart aodh
+service openstack-aodh-listener restart
+service openstack-aodh-notifier restart
+</code></pre>
+
+<pre><code class="shell"># create alarm rule
+aodh alarm create \
+    ‐‐name test_alarm \
+    ‐‐type event \
+    ‐‐alarm‐action &quot;http://127.0.0.1:12346/failure&quot; \
+    ‐‐repeat‐actions false \
+    ‐‐event‐type compute.instance.update \
+    ‐‐query &quot;traits.state=string:error&quot;
+</code></pre>
+
+<p>(If you use <code>consumer.py</code> in doctor tests it will listen at <code>12346</code> port. See <a href="http://docs.opnfv.org/en/stable-danube/submodules/doctor/docs/release/userguide/feature.userguide.html#immediate-notification">http://docs.opnfv.org/en/stable-danube/submodules/doctor/docs/release/userguide/feature.userguide.html#immediate-notification</a> for details.)</p>
+<pre><code class="shell"># to disable an alarm rule
+aodh alarm update ‐‐enabled False ALARM_ID
+# to delete an alarm rule
+aodh alarm delete ALARM_ID
+</code></pre>
+
+<h3 id="13-diy-server"><a name="user-content-13-diy-server" href="#13-diy-server" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>13 DIY Server</h3>
+<p>(DIY Server should run on the controller node)</p>
+<h4 id="130-source-code"><a name="user-content-130-source-code" href="#130-source-code" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>130 Source Code</h4>
+<pre><code class="python">#!/usr/bin/env python
+</code></pre>
+
+<p>[Remain]</p>
+<h3 id="14-tacker"><a name="user-content-14-tacker" href="#14-tacker" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>14 Tacker</h3>
+<p>[Remain]</p>
+<h2 id="2-live-migration-configurations"><a name="user-content-2-live-migration-configurations" href="#2-live-migration-configurations" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>2 Live Migration Configurations</h2>
+<blockquote>
+<p>See <a href="https://docs.openstack.org/nova/latest/admin/configuring-migrations.html">https://docs.openstack.org/nova/latest/admin/configuring-migrations.html</a> for details.<br />
+See <a href="http://www.danplanet.com/blog/2016/03/03/evacuate-in-nova-one-command-to-confuse-us-all/">http://www.danplanet.com/blog/2016/03/03/evacuate-in-nova-one-command-to-confuse-us-all/</a> for more descriptions.</p>
+</blockquote>
+<h3 id="20-ping"><a name="user-content-20-ping" href="#20-ping" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>20 Ping</h3>
+<p>Ensure all the compute nodes and controller nodes are able to <code>ping</code> each other by the hostname successfully. By default <code>/etc/hosts</code> has recorded all the maps needed. Your mission is just ensuring that.</p>
+<h3 id="21-vnc"><a name="user-content-21-vnc" href="#21-vnc" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>21 VNC</h3>
+<p>Ensure these entries below exist in <code>/etc/nova/nova.conf</code> on all the nodes.</p>
+<pre><code class="shell">vncserver_proxyclient_address=127.0.0.1
+vncserver_listen=0.0.0.0
+</code></pre>
+
+<h3 id="22-nfs-server"><a name="user-content-22-nfs-server" href="#22-nfs-server" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>22 NFS Server</h3>
+<p>Install&amp;configure NFS server on one controller.</p>
+<pre><code class="shell"># on the controller
+# mkdir -p /var/lib/nova/instances/
+
+vim /etc/exports
+# append things below
+/var/lib/nova/instances  192.0.2.0/24(rw,sync,no_root_squash,insecure)
+# 192.0.2.0/24 is the network of compute/controller nodes
+
+exportfs -rv
+chmod o+x /var/lib/nova/instances
+
+vim /etc/idmapd.conf
+# ensure things below exist
+[Mapping]
+Nobody-User = nobody
+Nobody-Group = nogroup
+
+# configure libvirt
+vim /etc/libvirt/libvirtd.conf
+# ensure things below
+listen_tls = 0
+listen_tcp = 1
+auth_tcp = &quot;none&quot;
+unix_sock_group = &quot;libvirtd&quot;
+unix_sock_ro_perms = &quot;0777&quot;
+unix_sock_rw_perms = &quot;0770&quot;
+auth_unix_ro = &quot;none&quot;
+auth_unix_rw = &quot;none&quot;
+
+# configure qemu
+vim /etc/libvirt/qemu.conf
+# ensure things below
+vnc_listen = &quot;0.0.0.0&quot;
+user = &quot;root&quot;
+group = &quot;root&quot;
+dynamic_ownership = 0
+
+systemctl restart rpcidmapd.service
+systemctl restart nfs-server.service
+</code></pre>
+
+<h3 id="23-nfs-client"><a name="user-content-23-nfs-client" href="#23-nfs-client" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>23 NFS Client</h3>
+<p>Install&amp;client NFS client on each compute node.</p>
+<pre><code class="shell"># on each compute node
+sudo -i
+yum install nfs-utils
+
+# 192.0.2.5 is IP of the controller where NFS server has been installed
+mount 192.0.2.5:/var/lib/nova/instances /var/lib/nova/instances
+
+vim /etc/fstab
+# configure auto-mount when startup
+192.0.2.5:/var/lib/nova/instances /var/lib/nova/instances nfs defaults 0 0
+
+mount -a -v
+
+# to check whether mount succeeds
+df -k
+
+ls -ld /var/lib/nova/instances
+chmod 777 /var/lib/nova/instances
+
+# configure libvirt
+vim /etc/libvirt/libvirtd.conf
+# ensure things below
+listen_tls = 0
+listen_tcp = 1
+auth_tcp = &quot;none&quot;
+unix_sock_group = &quot;libvirtd&quot;
+unix_sock_ro_perms = &quot;0777&quot;
+unix_sock_rw_perms = &quot;0770&quot;
+auth_unix_ro = &quot;none&quot;
+auth_unix_rw = &quot;none&quot;
+
+# configure qemu
+vim /etc/libvirt/qemu.conf
+# ensure things below
+vnc_listen = &quot;0.0.0.0&quot;
+user = &quot;root&quot;
+group = &quot;root&quot;
+dynamic_ownership = 0
+
+usermod nova -a -G libvirt
+
+vim /etc/sysconfig/libvirtd
+# ensure things below
+LIBVIRTD_ARGS=&quot;--listen&quot;
+
+vim /etc/nova/nova.conf
+# append statement below to [libvirt]
+live_migration_flag=VIR_MIGRATE_UNDEFINE_SOURCE,VIR_MIGRATE_PEER2PEER,VIR_MIGRATE_LIVE,VIR_MIGRATE_TUNNELLED
+
+systemctl restart libvirtd.service
+systemctl restart openstack-nova-compute
+</code></pre>
+
+<h3 id="24-iptables"><a name="user-content-24-iptables" href="#24-iptables" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>24 iptables</h3>
+<pre><code># on the controller node (which holds the NFS server)
+# configure iptables
+iptables -A INPUT -p tcp -m multiport --ports 16509 \
+    -m comment --comment &quot;libvirt&quot; -j ACCEPT
+</code></pre>
+
+<h3 id="25-uidgid"><a name="user-content-25-uidgid" href="#25-uidgid" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>25 UID/GID</h3>
+<p>Check UID/GID on the controller.</p>
+<pre><code class="shell">id nova
+uid gid
+</code></pre>
+
+<p>Then sync it on each compute node.</p>
+<pre><code class="shell">usermod -u uid nova
+groupmod -g gid nova
+</code></pre>
+
+<h3 id="26-evacuationmigration"><a name="user-content-26-evacuationmigration" href="#26-evacuationmigration" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>26 Evacuation&amp;Migration</h3>
+<pre><code class="shell"># just some common commands
+nova list
+nova show INSTANCE_ID
+nova service-list
+nova live-migration
+nova evacuate
+</code></pre>
+
+<h2 id="3-instance-creation"><a name="user-content-3-instance-creation" href="#3-instance-creation" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>3 Instance Creation</h2>
+<p>Before running the script, you need to put all the images you need in <code>~/images</code>. Currently we put four images in it:</p>
+<ul>
+<li>CentOS-7-x86_64-GenericCloud.qcow2</li>
+<li>precise-server-cloudimg-amd64-disk1.img</li>
+<li>trusty-server-cloudimg-amd64-disk1.img</li>
+<li>xenial-server-cloudimg-amd64-disk1.img</li>
+</ul>
+<pre><code class="shell">source ./overcloudrc
+
+# add images
+for image in $( ls ./images ); do
+        glance image-create --name $image --file images/$image \
+            --disk-format qcow2 --container-format bare --progress
+done
+
+# add flavors
+nova flavor-create --ephemeral 0 --is-public True m1.tiny 1 1024 10 1
+nova flavor-create --ephemeral 0 --is-public True m1.small 2 2048 20 1
+nova flavor-create --ephemeral 0 --is-public True m1.medium 3 4096 40 2
+nova flavor-create --ephemeral 0 --is-public True m1.large 4 8192 80 4
+
+# add key pair
+nova keypair-add newbie_test &gt; newbie_test.pem
+## change the attribute or `ssh` will fail
+chmod 700 ./newbie_test.pem
+
+# create network
+neutron net-create test_hou
+neutron subnet-create test_hou 192.168.22.0/24 --name test_hou_sub --dns-nameserver 8.8.8.8
+
+# add router
+neutron router-create router_test_hou
+router_id=$(openstack router list | grep router_test_hou | cut -d'|' -f 2)
+external_network_id=$(openstack network list | grep external | cut -d'|' -f 2)
+hou_subnet_id=$(openstack network list | grep test_hou | cut -d'|' -f 4)
+neutron router-gateway-set $router_id $external_network_id
+neutron router-interface-add $router_id $hou_subnet_id
+neutron port-create test_hou
+
+# create instance of Ubuntu 14.04
+instance_img_id=$(openstack image list | grep trusty | cut -d'|' -f 2)
+nova boot --flavor 2 --image $instance_img_id \
+    --key-name newbie_test --security-groups default \
+    --description &quot;newbie_test&quot; test_zhian
+
+# add floating ip
+openstack floating ip create --floating-ip-address 192.168.37.200 external
+nova floating-ip-associate test_zhian 192.168.37.200
+
+# modify security group
+sec_grp_prj=$(openstack project list | grep admin | cut -d'|' -f 2)
+sec_grp_id=$(openstack security group list | grep $sec_grp_prj | grep default | cut -d'|' -f 2)
+## allow ssh
+openstack security group rule create  $sec_grp_id --protocol tcp --dst-port 22:22 --src-ip 0.0.0.0/0
+## allow ping
+openstack security group rule create --protocol icmp $sec_grp_id
+## allow any
+nova secgroup-add-rule $sec_grp_id tcp 1 65535 0.0.0.0/0
+
+# create ssh login file
+ssh-keygen -R 192.168.37.200
+echo  '#!/bin/bash' &gt; newbie.sh
+echo -e &quot;\n&quot; &gt;&gt; newbie.sh
+echo &quot;ssh -i ./newbie_test.pem ubuntu@192.168.37.200&quot; &gt;&gt; newbie.sh
+chmod +x ./newbie.sh
+</code></pre>
+
+<p>After creating the instance, you can just run <code>./newbie.sh</code> to log on it.</p>
+<h2 id="4-cloudifyclearwater-deployment"><a name="user-content-4-cloudifyclearwater-deployment" href="#4-cloudifyclearwater-deployment" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>4 Cloudify&amp;Clearwater Deployment</h2>
+<p>Before deploying Cloudify, you need to change some quotas.</p>
+<pre><code class="shell"># increase limit of the number of security group
+## on controller (all controllers)
+vim /etc/neutron/neutron.conf
+### change security group to 50
+### change security group rules to 500
+service neutron-server restart
+
+# increase limit of the number of instances
+source overcloudrc
+openstack quota set admin --instances 30
+
+# increase limit of the number of CPU
+openstack quota set admin --cores 30
+</code></pre>
+
+<h3 id="40-cloudify-client"><a name="user-content-40-cloudify-client" href="#40-cloudify-client" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>40 Cloudify Client</h3>
+<p>Create one Ubuntu 14.04 instance (Actually, script in <code>3 Instance Creation</code> has already done it for you).</p>
+<pre><code class="shell">cd ~
+# install virtualenv
+sudo apt-get update
+sudo apt-get install git python-pip python-dev python-virtualenv -y
+virtualenv cloudify
+source cloudify/bin/activate
+
+# install cloudify
+cd cloudify
+pip install cloudify==3.3.1
+</code></pre>
+
+<h3 id="41-cloudify-manager"><a name="user-content-41-cloudify-manager" href="#41-cloudify-manager" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>41 Cloudify Manager</h3>
+<p>Bootstrap cloudify manager.</p>
+<pre><code class="shell">mkdir -p cloudify-manager
+cd cloudify-manager
+git clone -b 3.3.1-build  https://github.com/boucherv-orange/cloudify-manager-blueprints.git
+
+# initialize cfy work environment (initializes CLI configuration files)
+cfy init
+cd cloudify-manager-blueprints/
+cfy local create-requirements -o requirements.txt -p openstack-manager-blueprint.yaml
+sudo pip install -r requirements.txt
+
+# specify your own openstack information
+vi openstack-manager-blueprint-inputs.yaml
+
+# bootstrap manager
+cfy bootstrap --install-plugins -p openstack-manager-blueprint.yaml -i openstack-manager-blueprint-inputs.yaml
+</code></pre>
+
+<h3 id="42-clearwater"><a name="user-content-42-clearwater" href="#42-clearwater" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>42 Clearwater</h3>
+<p>Deploy clearwater via cloudify.</p>
+<pre><code class="shell"># Prepare clearwater blueprints
+cd ~/cloudify/cloudify-manager/
+mkdir blueprints
+cd blueprints
+git clone -b stable https://github.com/Orange-OpenSource/opnfv-cloudify-clearwater.git
+
+# Upload clearwater blueprints
+cd opnfv-cloudify-clearwater
+cfy blueprints upload -b clearwater-3.3 -p openstack-blueprint.yaml
+</code></pre>
+
+<p>Then create and launch deployment. The easiest way to create and launch deployment is via cloudify Web UI, just fill in proper information needed by deploying and then execute install workflow.</p>
+<p>(Maybe you should use <code>socat</code> or something like it to forward the Web UI out to the real server).</p>
+<p>Note that the specified version must be satisfied otherwise the process might not work.</p>
+<h2 id="5-doctor-tests"><a name="user-content-5-doctor-tests" href="#5-doctor-tests" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>5 Doctor Tests</h2>
+<blockquote>
+<p>See <a href="http://docs.opnfv.org/en/stable-danube/submodules/doctor/docs/development/overview/testing.html">http://docs.opnfv.org/en/stable-danube/submodules/doctor/docs/development/overview/testing.html</a>, <a href="https://wiki.opnfv.org/display/functest/">https://wiki.opnfv.org/display/functest/</a> for details.</p>
+</blockquote>
+<pre><code class="shell"># on real server
+
+## test script
+git clone https://gerrit.opnfv.org/gerrit/doctor
+cd doctor/tests
+export INSTALLER_TYPE=apex
+export INSPECTOR_TYPE=sample
+./run.sh
+
+## functest
+DOCKER_TAG=latest
+docker pull opnfv/functest:${DOCKER_TAG}
+docker run --privileged=true -id \
+    -e INSTALLER_TYPE=${INSTALLER_TYPE} \
+    -e INSTALLER_IP=${INSTALLER_IP} \
+    -e INSPECTOR_TYPE=sample \
+    opnfv/functest:${DOCKER_TAG} /bin/bash
+docker exec &lt;container_id&gt; python /home/opnfv/repos/functest/functest/ci/prepare_env.py start
+docker exec &lt;container_id&gt; functest testcase run doctor
+</code></pre>
+
+<h2 id="6-dial-test"><a name="user-content-6-dial-test" href="#6-dial-test" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>6 Dial Test</h2>
+<blockquote>
+<p>See <a href="http://clearwater.readthedocs.io/en/stable/Making_your_first_call.html#making-calls-through-clearwater">http://clearwater.readthedocs.io/en/stable/Making_your_first_call.html#making-calls-through-clearwater</a> for details.</p>
+</blockquote>
+<p>Our communication system is </p>
+<pre><code>X-Lite &lt;-&gt; Clearwater &lt;-&gt; X-Lite
+</code></pre>
+
+<p>You can download <code>X-Lite</code> from <a href="http://www.counterpath.com/x-lite-download/">http://www.counterpath.com/x-lite-download/</a>.</p>
+<pre><code>Information needed:
+
+- base DNS name: opnfv.clearwater (as &lt;domain&gt;)
+- Ellis URL: use IP
+- sign up as a new user using the signup code(&quot;secret&quot;)
+- then take down the number(as &lt;username&gt;) and the password(as &lt;password&gt;)
+
+Configuration on SIP Client:
+
+SIP Username       | &lt;username&gt;
+SIP Password       | &lt;password&gt;
+SIP domain         | &lt;domain&gt;
+Authorization Name | &lt;username&gt;@&lt;domain&gt;
+Transport          | TCP
+STUN/TURN/ICE      |
+    Enabled        | true
+    Server         | &lt;domain&gt;
+    username       | &lt;username&gt;@&lt;domain&gt;
+    Password       | &lt;password&gt;
+    Use rport      | true (this is required if your SIP client is behind a NAT)
+</code></pre>
+
+<h2 id="7-summary"><a name="user-content-7-summary" href="#7-summary" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>7 Summary</h2>
+<p>[Remain]</p>
+<h2 id="8-extras"><a name="user-content-8-extras" href="#8-extras" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>8 Extras</h2>
+<h3 id="80-nova-service-force-down"><a name="user-content-80-nova-service-force-down" href="#80-nova-service-force-down" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>80 Nova Service Force Down</h3>
+<pre><code class="shell"># unset `down`
+nova service‐force‐down ‐‐unset overcloud‐novacompute‐2.opnfvlf.org nova-compute
+# set `down`
+nova service‐force‐down ‐‐set overcloud‐novacompute‐2.opnfvlf.org nova‐compute
+</code></pre>
+
+<h3 id="81-reset-instances-state"><a name="user-content-81-reset-instances-state" href="#81-reset-instances-state" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>81 Reset Instance&rsquo;s State</h3>
+<pre><code class="shell">nova reset-state --active INSTANCE_ID
+</code></pre>
+
+<h3 id="82-migrateevacuate-commands"><a name="user-content-82-migrateevacuate-commands" href="#82-migrateevacuate-commands" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>82 Migrate&amp;Evacuate Commands</h3>
+<pre><code class="shell"># Migrate a server. The new host will be selected by the scheduler
+nova migrate
+# Evacuate server from failed host
+nova host-evacuate
+# Migrate running server to a new machine
+nova live-migration
+# Live migrate all instances of the specified host to other available hosts
+nova host-evacuate-live
+# Cold migrate all instances off the specified host to other available hosts
+nova host-servers-migrate
+</code></pre>
+
+<h3 id="83-sync-configurations"><a name="user-content-83-sync-configurations" href="#83-sync-configurations" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>83 Sync Configurations</h3>
+<p>Modifications to the configruations on one controller should be applied to all the other controllers, so it is with compute nodes.</p>
+<h3 id="84-yardstick-test"><a name="user-content-84-yardstick-test" href="#84-yardstick-test" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>84 Yardstick Test</h3>
+<pre><code class="shell">## wiki
+### https://wiki.opnfv.org/display/yardstick
+## download &amp; run
+docker pull opnfv/yardstick:latest
+docker run ‐itd ‐‐privileged ‐v /var/run/docker.sock:/var/run/docker.sock \
+    ‐‐name yardstick opnfv/yardstick:latest
+## interactive bash
+docker exec ‐it yardstick bash
+## test prepare
+yardstick env prepare
+## add identification
+### copy identification from undercloud /home/stack/overcloudrc
+vim /etc/yardstick/openstack.creds
+### use identification
+source /etc/yardstick/openstack.creds
+## run samples
+yardstick ‐d task start samples/ping.yaml
+## watch report
+cat /tmp/yardstick.out
+## delete yardstick
+docker stop yardstick &amp;&amp; docker rm yardstick
+</code></pre>
+
+<h3 id="85-functest-test"><a name="user-content-85-functest-test" href="#85-functest-test" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>85 Functest Test</h3>
+<pre><code class="shell">## wiki
+### https://wiki.opnfv.org/display/functest
+## download &amp; run
+docker pull opnfv/functest:latest
+docker run ‐itd ‐‐privileged ‐v /var/run/docker.sock:/var/run/docker.sock ‐‐
+name functest opnfv/functest:latest
+## interactive bash
+docker exec ‐it functest bash
+## download images
+download_images.sh /home/opnfv/functest/images/
+## add identification
+### copy identification from undercloud /home/stack/overcloudrc
+vim /home/opnfv/functest/conf/openstack.creds
+## test prepare
+functest env prepare
+### use identification
+source /home/opnfv/functest/conf/openstack.creds
+## show test tier
+functest tier list
+## run test
+functest testcase run connection_check
+functest testcase run vping_ssh
+</code></pre>
+
+<h3 id="86-other-notes"><a name="user-content-86-other-notes" href="#86-other-notes" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>86 Other Notes</h3>
+<pre><code class="shell"># goto undercloud
+opnfv-util undercloud
+# show containers
+docker ps
+# show images
+docker images
+# add SSH key to container
+docker cp /root/.ssh/id_rsa CONTAINER_ID:/root/.ssh/id_rsa
+# use screen
+## create a screen (name: inspector)
+screen ‐S inspector
+## go back to bash
+Ctrl+A d
+## list screen
+screen ‐ls
+## recovery (xxx is the ID of screen)
+screen ‐r xxx
+</code></pre></article></body></html>

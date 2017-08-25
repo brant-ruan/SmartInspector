@@ -6,6 +6,11 @@
 cd ~
 source ./overcloudrc
 
+# variables (default values given)
+test_zhian_ip=192.168.37.200
+test_hou_net=192.168.22.0/24
+new_instance_image=trusty
+
 # add images
 for image in $( ls ./images ); do
         glance image-create --name $image --file images/$image \
@@ -25,7 +30,7 @@ chmod 700 ./newbie_test.pem
 
 # create network
 neutron net-create test_hou
-neutron subnet-create test_hou 192.168.22.0/24 --name test_hou_sub --dns-nameserver 8.8.8.8
+neutron subnet-create test_hou $test_hou_net --name test_hou_sub --dns-nameserver 8.8.8.8
 
 # add router
 neutron router-create router_test_hou
@@ -37,14 +42,14 @@ neutron router-interface-add $router_id $hou_subnet_id
 neutron port-create test_hou
 
 # create instance of Ubuntu 14.04
-instance_img_id=$(openstack image list | grep trusty | cut -d'|' -f 2)
+instance_img_id=$(openstack image list | grep $new_instance_image | cut -d'|' -f 2)
 nova boot --flavor 2 --image $instance_img_id \
     --key-name newbie_test --security-groups default \
     --description "newbie_test" test_zhian
 
 # add floating ip
-openstack floating ip create --floating-ip-address 192.168.37.200 external
-nova floating-ip-associate test_zhian 192.168.37.200
+openstack floating ip create --floating-ip-address $test_zhian_ip external
+nova floating-ip-associate test_zhian $test_zhian_ip
 
 # modify security group
 sec_grp_prj=$(openstack project list | grep admin | cut -d'|' -f 2)
@@ -57,10 +62,10 @@ openstack security group rule create --protocol icmp $sec_grp_id
 nova secgroup-add-rule $sec_grp_id tcp 1 65535 0.0.0.0/0
 
 # create ssh login file
-ssh-keygen -R 192.168.37.200
+ssh-keygen -R $test_zhian_ip
 echo  '#!/bin/bash' > newbie.sh
 echo -e "\n" >> newbie.sh
-echo "ssh -i ./newbie_test.pem ubuntu@192.168.37.200" >> newbie.sh
+echo "ssh -i ./newbie_test.pem ubuntu@$test_zhian_ip" >> newbie.sh
 chmod +x ./newbie.sh
 
-scp -i ./newbie_test.pem overcloudrc ubuntu@192.168.37.200:~/
+scp -i ./newbie_test.pem overcloudrc ubuntu@$test_zhian_ip:~/
