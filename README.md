@@ -561,6 +561,16 @@ docker exec <container_id> functest testcase run doctor
 
 ## 6 Dial Test
 
+> See http://clearwater.readthedocs.io/en/stable/Making_your_first_call.html#making-calls-through-clearwater for details.
+
+Our communication system is 
+
+```
+X-Lite <-> Clearwater <-> X-Lite
+```
+
+You can download `X-Lite` from http://www.counterpath.com/x-lite-download/.
+
 [Remain]
 
 ## 7 Summary
