@@ -19,7 +19,7 @@ opnfv-deploy -v --virtual-cpus 8 \
 
 ### 01 NAT
 
-To make Internet accessible to VMs on Overcloud.
+To make Internet accessible from VMs on Overcloud.
 
 ```shell
 # on real server
@@ -450,11 +450,11 @@ echo "ssh -i ./newbie_test.pem ubuntu@192.168.37.200" >> newbie.sh
 chmod +x ./newbie.sh
 ```
 
-After creating the instance, you can just run `./newbie.sh` to log on it.
+After creating the instance, you can simply run `./newbie.sh` to log on it.
 
 ## 4 Cloudify&Clearwater Deployment
 
-Before deploying Cloudify, you need to change some quotas.
+Before deploying Cloudify, you need to change openstack default quotas.
 
 ```shell
 # increase limit of the number of security group
@@ -474,7 +474,7 @@ openstack quota set admin --cores 30
 
 ### 40 Cloudify Client
 
-Create one Ubuntu 14.04 instance (Actually, script in `3 Instance Creation` has already done it for you).
+Create one Ubuntu 14.04 instance (Actually, script in `3 Instance Creation` has already done this for you).
 
 ```shell
 cd ~
@@ -525,11 +525,18 @@ git clone -b stable https://github.com/Orange-OpenSource/opnfv-cloudify-clearwat
 # Upload clearwater blueprints
 cd opnfv-cloudify-clearwater
 cfy blueprints upload -b clearwater-3.3 -p openstack-blueprint.yaml
+
+# create deployment
+cp inputs/openstack.yaml.template inputs/inputs.yaml
+# provide proper configuration 
+vim inputs/inputs.yaml 
+cfy deployments create -b clearwater-3.3 -d clearwater-test --inputs inputs/inputs.yaml
+cfy executions start -w install -d clearwater-test
 ```
 
-Then create and launch deployment. The easiest way to create and launch deployment is via cloudify Web UI, just fill in proper information needed by deploying and then execute install workflow.
+You can also create and launch deployment via cloudify Web UI, just fill in proper information needed by deploying then executing installation workflow.
 
-(Maybe you should use `socat` or something like it to forward the Web UI out to the real server).
+(Maybe you should use `socat` or something like it to forward the Web UI port out to the real server).
 
 Note that the specified version must be satisfied otherwise the process might not work.
 
@@ -701,7 +708,7 @@ docker cp /root/.ssh/id_rsa CONTAINER_ID:/root/.ssh/id_rsa
 # use screen
 ## create a screen (name: inspector)
 screen ‐S inspector
-## go back to bash
+## detach from current screen, back to bash
 Ctrl+A d
 ## list screen
 screen ‐ls
