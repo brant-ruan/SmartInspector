@@ -34,8 +34,9 @@ if [ -e ~/overcloudrc ]; then
 source ~/overcloudrc
 m_keystone_password=$(cat ~/overcloudrc | grep 'OS_PASSWORD' | cut -d'=' -f 2)
 m_keystone_url=$(cat overcloudrc | grep 'OS_AUTH_URL' | cut -d'=' -f 2)
-m_region=$(openstack endpoint show keystone | grep region | cut -d'|' -f 3)
-m_region=$(echo $m_region) # to strip the whitespaces
+#m_region=$(openstack endpoint show keystone | grep region | cut -d'|' -f 3)
+#m_region=$(echo $m_region) # to strip the whitespaces
+m_region="regionOne"
 m_image_id=$(openstack image list | grep -i centos | cut -d'|' -f 2)
 m_image_id=$(echo $m_image_id)
 m_flavor_id=$(openstack flavor list | grep large | cut -d'|' -f 2)
