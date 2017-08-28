@@ -50,11 +50,40 @@ service firewalld stop
 
 #### 100 Zabbix Agent
 
-[Remain]
+On each compute node:
+
+```shell
+# install
+sudo rpm -ivh http://repo.zabbix.com/zabbix/3.0/rhel/7/x86_64/zabbix-release-3.0-1.el7.noarch.rpm
+sudo yum install zabbix-agent
+
+# PSK encryption
+sudo sh -c "openssl rand -hex 32 > /etc/zabbix/zabbix_agentd.psk"
+cat /etc/zabbix/zabbix_agentd.psk
+## now copy the PSK
+
+sudo vi /etc/zabbix/zabbix_agentd.conf
+## configure zabbix server
+Server=zabbix-server-ip
+## configure connection between server and agent
+TLSConnect=psk
+TLSAccept=psk
+TLSPSKIdentity=PSK 001
+## when you add host in zabbix web agent, you should use this PSK ID
+TLSPSKFile=/etc/zabbix/zabbix_agentd.psk
+
+# start agent
+sudo systemctl start zabbix-agent
+sudo systemctl enable zabbix-agent
+## check status
+sudo systemctl status zabbix-agent
+```
 
 #### 101 Zabbix Server
 
-[Remain]
+On one controller node:
+
+
 
 #### 102 Zabbix Alert Script
 
@@ -67,7 +96,10 @@ service firewalld stop
 PUT /v1/data‐sources/doctor/tables/events/rows
 ```
 
-[Remain]
+```shell
+# alert script
+
+```
 
 ### 11 Inspector
 

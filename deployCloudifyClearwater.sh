@@ -33,7 +33,7 @@ sudo pip install -r requirements.txt
 if [ -e ~/overcloudrc ]; then
 source ~/overcloudrc
 m_keystone_password=$(cat ~/overcloudrc | grep 'OS_PASSWORD' | cut -d'=' -f 2)
-m_keystone_url=$(cat overcloudrc | grep 'OS_AUTH_URL' | cut -d'=' -f 2)
+m_keystone_url=$(cat ~/overcloudrc | grep 'OS_AUTH_URL' | cut -d'=' -f 2)
 #m_region=$(openstack endpoint show keystone | grep region | cut -d'|' -f 3)
 #m_region=$(echo $m_region) # to strip the whitespaces
 m_region="regionOne"
