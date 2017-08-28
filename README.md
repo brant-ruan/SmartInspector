@@ -148,6 +148,15 @@ Configure Item -> Trigger -> Action
 
 ##### 1016 Alert Script
 
+> See https://github.com/openstack/congress/blob/master/congress/datasources/doctor_driver.py for details about doctor driver.  
+> See https://www.zabbix.com/documentation/3.2/manual/config/notifications/media/script for Zabbix details about alert script.  
+> See `man curl` for bonus :)
+
+```shell
+# Doctor driver API
+PUT /v1/data‐sources/doctor/tables/events/rows
+```
+
 1. curl KeyStone RESTful API using HTTP POST for token
 2. curl Congress RESTful API using the token above
 
@@ -188,22 +197,6 @@ chmod +x /usr/local/zabbix/share/zabbix/alertscripts/alertscript.sh
 
 ```
 Administration -> Add Media Types -> Select script type -> add alert.sh into AlertScriptsPath
-```
-
-#### 102 Zabbix Alert Script
-
-> See https://github.com/openstack/congress/blob/master/congress/datasources/doctor_driver.py for details about doctor driver.  
-> See https://www.zabbix.com/documentation/3.2/manual/config/notifications/media/script for Zabbix details about alert script.  
-> See `man curl` for bonus :)
-
-```shell
-# Doctor driver API
-PUT /v1/data‐sources/doctor/tables/events/rows
-```
-
-```shell
-# alert script
-
 ```
 
 ### 11 Inspector
