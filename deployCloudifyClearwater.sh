@@ -117,7 +117,7 @@ cfy blueprints upload -b clearwater-3.3 -p openstack-blueprint.yaml
 # begin to deploy clearwater
 m_cw_image_id=$(openstack image list | grep -i trusty | cut -d'|' -f 2)
 m_cw_image_id=$(echo $m_cw_image_id)
-m_cw_flavor_id=$(openstack flavor list | grep small | cut -d'|' -f 2)
+m_cw_flavor_id=$(nova flavor-list | grep small | cut -d'|' -f 2)
 m_cw_flavor_id=$(echo $m_cw_flavor_id)
 m_cw_agent_user='ubuntu'
 m_cw_external_network_name='external'

@@ -19,7 +19,7 @@ done
 
 # add flavors
 nova flavor-create --ephemeral 0 --is-public True m1.tiny 1 1024 10 1
-nova flavor-create --ephemeral 0 --is-public True m1.small 2 2048 20 1
+nova flavor-create --ephemeral 0 --is-public True m1.small 2 3072 20 1
 nova flavor-create --ephemeral 0 --is-public True m1.medium 3 4096 40 2
 nova flavor-create --ephemeral 0 --is-public True m1.large 4 8192 80 4
 
