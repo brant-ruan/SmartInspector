@@ -39,7 +39,7 @@ m_keystone_url=$(cat ~/overcloudrc | grep 'OS_AUTH_URL' | cut -d'=' -f 2)
 m_region="regionOne"
 m_image_id=$(openstack image list | grep -i centos | cut -d'|' -f 2)
 m_image_id=$(echo $m_image_id)
-m_flavor_id=$(openstack flavor list | grep large | cut -d'|' -f 2)
+m_flavor_id=$(nova flavor-list | grep large | cut -d'|' -f 2)
 m_flavor_id=$(echo $m_flavor_id)
 
 # keystone_username
