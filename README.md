@@ -81,9 +81,114 @@ sudo systemctl status zabbix-agent
 
 #### 101 Zabbix Server
 
-On one controller node:
+On one controller node (One is enough):
 
+##### 1010 Zabbix Server
 
+```shell
+# install
+sudo rpm -ivh http://repo.zabbix.com/zabbix/3.0/rhel/7/x86_64/zabbix-release-3.0-1.el7.noarch.rpm
+sudo yum install zabbix-server-mysql zabbix-web-mysql
+sudo yum install zabbix-agent # to monitor itself
+```
+
+##### 1011 MySQL
+
+```shell
+# SQL instructions
+## create database
+create database zabbix character set utf8;
+## create user and grant privileges
+grant all privileges on zabbix.* to zabbix@localhost identified by 'your_password';
+flush privileges;
+
+# import schema
+cd /usr/share/doc/zabbix-server-mysql-3.0.4/
+zcat create.sql.gz | mysql -uzabbix-p zabbix
+sudo vi /etc/zabbix/zabbix_server.conf
+# configure the password of database
+DBPassword=...
+```
+
+##### 1012 PHP
+
+```shell
+sudo vi /etc/httpd/conf.d/zabbix.conf
+# modify things below
+php_value date.timezone Asia/Shanghai
+
+sudo systemctl restart httpd
+sudo systemctl start zabbix-server
+sudo systemctl status zabbix-server
+sudo systemctl enable zabbix-server
+```
+
+##### 1013 Zabbix Web UI
+
+Visit http://127.0.0.1/zabbix/
+
+##### 1014 Add Host
+
+In Web UI:
+
+```
+Configuration 
+    -> Hosts -> Create host -> Configure host name/host ip
+        -> Select host group (by default Linux Server group)
+Templates -> Template OS Linux -> Encryption -> PSK
+    -> Configure PSK ID (use the ID in part 100)
+    -> Configure PSK value (from /etc/zabbix/zabbix_agentd.psk in zabbix agent)
+```
+
+##### 1015 Add Item/Trigger/Action
+
+```
+Configure Item -> Trigger -> Action
+```
+
+##### 1016 Alert Script
+
+1. curl KeyStone RESTful API using HTTP POST for token
+2. curl Congress RESTful API using the token above
+
+`alert.sh` sample:
+
+```shell
+#!/bin/bash
+
+username="admin"
+password="4MbCBXaqHJmARqpWzFNJFQF2T"
+congress_url="http://192.168.37.12:1789"
+keystone_url="http://192.168.37.12:5000/v2.0"
+# fetch token
+curl $keystone_url"/tokens" -X POST -H "Content-Type: application/json" -H "Accept: application/json"  -d '{"auth": {"tenantName": "admin", "passwordCredentials": {"username": "admin", "password": "4MbCBXaqHJmARqpWzFNJFQF2T"}}}' > result.json
+
+token0=$(jq .access.token.id result.json)
+
+token=${token0//\"/}
+
+rm result.json
+
+sendtime=`date`
+
+date
+
+# send data
+curl -i -X PUT $congress_url/v1/data-sources/doctor/tables/events/rows -H "Content-Type: application/json" -d '[{"time":"2016-02-22T11:48:55Z","type":"compute.host.down","details":{"hostname":"overcloud-novacompute-0.opnfvlf.org","status":"down","monitor":"zabbix1","monitor_event_id":"111"}}]'  -H "X-Auth-Token: $token"
+```
+
+Then
+
+```shell
+chown zabbix.zabbix /usr/local/zabbix/share/zabbix/alertscripts/alertscript.sh
+chmod +x /usr/local/zabbix/share/zabbix/alertscripts/alertscript.sh
+```
+
+##### 1017 Add Media
+
+```
+Administration -> Add Media Types -> Select script type -> add alert.sh into AlertScriptsPath
+```
 
 #### 102 Zabbix Alert Script
 
