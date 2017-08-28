@@ -7,7 +7,7 @@ cd ~
 source ./overcloudrc
 
 # variables (default values given)
-test_zhian_ip=192.168.37.200
+test_zhian_ip=192.168.32.200
 test_hou_net=192.168.22.0/24
 new_instance_image=trusty
 
