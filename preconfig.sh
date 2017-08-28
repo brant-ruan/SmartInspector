@@ -65,7 +65,13 @@ nova secgroup-add-rule $sec_grp_id tcp 1 65535 0.0.0.0/0
 ssh-keygen -R $test_zhian_ip
 echo  '#!/bin/bash' > newbie.sh
 echo -e "\n" >> newbie.sh
-echo "ssh -i ./newbie_test.pem ubuntu@$test_zhian_ip" >> newbie.sh
+echo "ssh -i ./newbie_test.pem ubuntu@192.168.32.200" >> newbie.sh
 chmod +x ./newbie.sh
 
-scp -i ./newbie_test.pem overcloudrc ubuntu@$test_zhian_ip:~/
+scp -i ./newbie_test.pem overcloudrc ubuntu@192.168.32.200:~/
+
+# change the quota
+## increase limit of the number of instances
+openstack quota set admin --instances 30
+## increase limit of the number of CPU
+openstack quota set admin --cores 30
