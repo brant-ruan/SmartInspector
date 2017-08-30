@@ -847,3 +847,20 @@ screen ‐ls
 screen ‐r xxx
 ```
 
+### 87 Error
+
+#### 870 Error When Deploying Cloudify
+
+```
+[192.168.32.195] run: curl --fail -XPOST localhost:8101/api/v2/provider/context?update=False -H "Content-Type: application/json" -d @/tmp/provider-context.json
+[192.168.32.195] out: curl: (22) The requested URL returned error: 500 INTERNAL SERVER ERROR
+[192.168.32.195] out: 
+
+
+Fatal error: run() received nonzero return code 22 while executing!
+
+Requested: curl --fail -XPOST localhost:8101/api/v2/provider/context?update=False -H "Content-Type: application/json" -d @/tmp/provider-context.json
+Executed: /bin/bash -l -c "curl --fail -XPOST localhost:8101/api/v2/provider/context?update=False -H \"Content-Type: application/json\" -d @/tmp/provider-context.json"
+
+Aborting.
+```
