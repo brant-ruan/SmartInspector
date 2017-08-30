@@ -870,3 +870,4 @@ Aborting.
 ```
 
 https://github.com/cloudify-cosmo/cloudify-manager-blueprints/issues/136
+https://groups.google.com/forum/#!topic/cloudify-users/7Vo2fUVlLks
