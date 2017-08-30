@@ -17,7 +17,7 @@ opnfv-deploy -v --virtual-cpus 8 \
     -n network_settings.yaml -d os-nosdn-nofeature-ha.yaml --debug > apex.log
 ```
 
-### 01 NAT
+### 01 NAT (discard)
 
 To make Internet accessible from VMs on Overcloud.
 
@@ -29,7 +29,7 @@ iptables -t nat -A POSTROUTING -s 192.168.122.0/24 -j SNAT --to 192.168.32.20
 iptables -A FORWARD -m state --state ESTABLISHED,RELATED -j ACCEPT
 ```
 
-### 02 Dashboard
+### 02 Dashboard (discard)
 
 To visit dashboard from outside.
 
@@ -125,7 +125,7 @@ sudo systemctl enable zabbix-server
 
 ##### 1013 Zabbix Web UI
 
-Visit http://127.0.0.1/zabbix/
+Visit http://localhost/zabbix/
 
 ##### 1014 Add Host
 
@@ -167,8 +167,8 @@ PUT /v1/data‐sources/doctor/tables/events/rows
 
 username="admin"
 password="4MbCBXaqHJmARqpWzFNJFQF2T"
-congress_url="http://192.168.37.12:1789"
-keystone_url="http://192.168.37.12:5000/v2.0"
+congress_url="http://192.168.32.161:1789"
+keystone_url="http://192.168.32.161:5000/v2.0"
 # fetch token
 curl $keystone_url"/tokens" -X POST -H "Content-Type: application/json" -H "Accept: application/json"  -d '{"auth": {"tenantName": "admin", "passwordCredentials": {"username": "admin", "password": "4MbCBXaqHJmARqpWzFNJFQF2T"}}}' > result.json
 
