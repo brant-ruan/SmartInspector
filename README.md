@@ -222,6 +222,8 @@ openstack congress datasource create doctor doctor
 
 #### 111 Congress Policies 
 
+> See https://docs.openstack.org/congress/latest/user/policy.html for details about policy.
+
 Follow statements below and create policies needed.
 
 ```shell
