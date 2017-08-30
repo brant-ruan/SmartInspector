@@ -868,3 +868,5 @@ Executed: /bin/bash -l -c "curl --fail -XPOST localhost:8101/api/v2/provider/con
 
 Aborting.
 ```
+
+https://github.com/cloudify-cosmo/cloudify-manager-blueprints/issues/136
