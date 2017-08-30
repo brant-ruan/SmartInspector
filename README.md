@@ -734,7 +734,6 @@ STUN/TURN/ICE      |
 ## 7 Summary
 
 To be or not to be, that is a question :)
-Hello OpenStack 
 
 ## 8 Extras
 
