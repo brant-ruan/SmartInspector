@@ -8,9 +8,9 @@ cd ~
 # install virtualenv
 sudo apt-get update
 sudo apt-get install git python-pip python-dev python-virtualenv -y
-sudo apt-get install nova-console
-sudo apt-get install python-novaclient
-sudo apt-get install python-openstackclient
+sudo apt-get install nova-console -y
+sudo apt-get install python-novaclient -y
+sudo apt-get install python-openstackclient -y
 virtualenv cloudify
 source cloudify/bin/activate
 
