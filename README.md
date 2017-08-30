@@ -734,6 +734,7 @@ STUN/TURN/ICE      |
 ## 7 Summary
 
 To be or not to be, that is a question :)
+Hello OpenStack 
 
 ## 8 Extras
 
@@ -835,7 +836,7 @@ docker ps
 docker images
 # add SSH key to container
 docker cp /root/.ssh/id_rsa CONTAINER_ID:/root/.ssh/id_rsa
-# use screen
+# use screen 
 ## create a screen (name: inspector)
 screen ‐S inspector
 ## detach from current screen, back to bash
@@ -845,3 +846,4 @@ screen ‐ls
 ## recovery (xxx is the ID of screen)
 screen ‐r xxx
 ```
+
