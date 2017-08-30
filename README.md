@@ -665,9 +665,8 @@ cfy deployments create -b clearwater-3.3 -d clearwater-test --inputs inputs/inpu
 cfy executions start -w install -d clearwater-test
 ```
 
-You can also create and launch deployment via cloudify Web UI, just fill in proper information needed by deploying then executing installation workflow.
+You can also create and launch deployment via cloudify Web UI, just fill in proper information needed by deploying then start installation workflow.
 
-(Maybe you should use `socat` or something like it to forward the Web UI port out to the real server).
 
 Note that the specified version must be satisfied otherwise the process might not work.
 
@@ -845,5 +844,10 @@ Ctrl+A d
 screen ‐ls
 ## recovery (xxx is the ID of screen)
 screen ‐r xxx
+# cloudify CLI3.3.3 common used 
+## destroy cloudify manager environment
+cfy teardown -f
+## delete deployment via CLI 
+cfy deployments delete -d DEPLOYMENT_ID
 ```
 
