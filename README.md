@@ -703,10 +703,10 @@ docker exec <container_id> functest testcase run doctor
 Our communication system is 
 
 ```
-X-Lite <-> Clearwater <-> X-Lite
+Blink <-> Clearwater <-> Blink
 ```
 
-You can download `X-Lite` from http://www.counterpath.com/x-lite-download/.
+You can download `Blink` from http://icanblink.com/download/.
 
 ```
 Information needed:
@@ -716,7 +716,7 @@ Information needed:
 - sign up as a new user using the signup code("secret")
 - then take down the number(as <username>) and the password(as <password>)
 
-Configuration on SIP Client:
+Configuration on SIP Client (Blink):
 
 SIP Username       | <username>
 SIP Password       | <password>
@@ -733,7 +733,7 @@ STUN/TURN/ICE      |
 
 ## 7 Summary
 
-[Remain]
+To be or not to be, that is a question :)
 
 ## 8 Extras
 
