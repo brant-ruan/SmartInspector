@@ -844,7 +844,7 @@ Ctrl+A d
 screen ‐ls
 ## recovery (xxx is the ID of screen)
 screen ‐r xxx
-# cloudify CLI3.3.3 common used 
+# cloudify CLI3.3.3 commonly used 
 ## destroy cloudify manager environment
 cfy teardown -f
 ## delete deployment via CLI 
