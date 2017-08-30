@@ -37,7 +37,6 @@ To visit dashboard from outside.
 # on real server
 screen -S opnfv_dashboard
 # in screen
-## Note that this command may be harmful to iptables entries already existed
 socat tcp-l:10001,reuseaddr,fork tcp:192.168.37.18:80
 # 192.168.37.18 is the controller's IP
 ## the firewalld may block the connections
@@ -736,7 +735,6 @@ STUN/TURN/ICE      |
 ## 7 Summary
 
 To be or not to be, that is a question :)
-Hello OpenStack 
 
 ## 8 Extras
 
