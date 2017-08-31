@@ -870,3 +870,26 @@ Aborting.
 ```
 
 https://github.com/cloudify-cosmo/cloudify-manager-blueprints/issues/136
+
+https://groups.google.com/forum/#!topic/cloudify-users/7Vo2fUVlLks
+
+### 88 Restart Neutron
+
+```
+# controller node
+service openstack-nova-api restart
+service openstack-nova-scheduler restart
+service openstack-nova-conductor restart
+service neutron-server restart
+
+# network node
+service openvswitch restart
+service neutron-openvswitch-agent restart
+service neutron-l3-agent restart
+service neutron-dhcp-agent restart
+service neutron-metadata-agent restart
+
+# compute node
+service neutron-openvswitch-agent restart
+service openvswitch restart
+```

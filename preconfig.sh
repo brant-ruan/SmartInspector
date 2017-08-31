@@ -42,8 +42,9 @@ neutron router-interface-add $router_id $hou_subnet_id
 neutron port-create test_hou
 
 # create instance of Ubuntu 14.04
+flavor_id=$(openstack flavor list | grep "small" | cut -d'|' -f 2)
 instance_img_id=$(openstack image list | grep $new_instance_image | cut -d'|' -f 2)
-nova boot --flavor 2 --image $instance_img_id \
+nova boot --flavor $flavor_id --image $instance_img_id \
     --key-name newbie_test --security-groups default \
     --description "newbie_test" test_zhian
 
