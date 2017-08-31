@@ -8,7 +8,7 @@ cd ~
 # install virtualenv
 sudo apt-get update
 sudo apt-get install git python-pip python-dev python-virtualenv -y \
-&& apt-get install nova-console -y \
+&& sudo apt-get install nova-console -y \
 && sudo apt-get install python-novaclient -y \
 && sudo apt-get install python-openstackclient -y
 
