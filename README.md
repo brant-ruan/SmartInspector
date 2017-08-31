@@ -870,30 +870,50 @@ Aborting.
 ```
 
 https://github.com/cloudify-cosmo/cloudify-manager-blueprints/issues/136
-<<<<<<< HEAD
-
 https://groups.google.com/forum/#!topic/cloudify-users/7Vo2fUVlLks
 
-### 88 Restart Neutron
+#### 871 abort-on-prompts Was Set to True
 
 ```
-# controller node
-service openstack-nova-api restart
-service openstack-nova-scheduler restart
-service openstack-nova-conductor restart
-service neutron-server restart
+2017-08-31 02:46:16 LOG <manager> [java_runtime_31aad.create] ERROR: Exception raised on operation [fabric_plugin.tasks.run_script] invocation
+Traceback (most recent call last):
+  File "/home/ubuntu/cloudify/local/lib/python2.7/site-packages/cloudify/decorators.py", line 122, in wrapper
+    result = func(*args, **kwargs)
+  File "/home/ubuntu/cloudify/local/lib/python2.7/site-packages/fabric_plugin/tasks.py", line 152, in run_script
+    if not fabric_files.exists(remote_ctx_path):
+  File "/home/ubuntu/cloudify/local/lib/python2.7/site-packages/fabric/contrib/files.py", line 36, in exists
+    return not func(cmd).failed
+  File "/home/ubuntu/cloudify/local/lib/python2.7/site-packages/fabric/network.py", line 639, in host_prompting_wrapper
+    return func(*args, **kwargs)
+  File "/home/ubuntu/cloudify/local/lib/python2.7/site-packages/fabric/operations.py", line 1042, in run
+    shell_escape=shell_escape)
+  File "/home/ubuntu/cloudify/local/lib/python2.7/site-packages/fabric/operations.py", line 909, in _run_command
+    channel=default_channel(), command=wrapped_command, pty=pty,
+  File "/home/ubuntu/cloudify/local/lib/python2.7/site-packages/fabric/state.py", line 388, in default_channel
+    chan = _open_session()
+  File "/home/ubuntu/cloudify/local/lib/python2.7/site-packages/fabric/state.py", line 380, in _open_session
+    return connections[env.host_string].get_transport().open_session()
+  File "/home/ubuntu/cloudify/local/lib/python2.7/site-packages/fabric/network.py", line 151, in __getitem__
+    self.connect(key)
+  File "/home/ubuntu/cloudify/local/lib/python2.7/site-packages/fabric/network.py", line 143, in connect
+    self[key] = connect(user, host, port, cache=self)
+  File "/home/ubuntu/cloudify/local/lib/python2.7/site-packages/fabric/network.py", line 523, in connect
+    password = prompt_for_password(text)
+  File "/home/ubuntu/cloudify/local/lib/python2.7/site-packages/fabric/network.py", line 596, in prompt_for_password
+    handle_prompt_abort("a connection or sudo password")
+  File "/home/ubuntu/cloudify/local/lib/python2.7/site-packages/fabric/utils.py", line 151, in handle_prompt_abort
+    abort(reason % "abort-on-prompts was set to True")
+  File "/home/ubuntu/cloudify/local/lib/python2.7/site-packages/fabric/utils.py", line 32, in abort
+    raise env.abort_exception(msg)
+FabricTaskError: Needed to prompt for a connection or sudo password (host: 192.168.32.196), but abort-on-prompts was set to True
+2017-08-31 02:46:16 CFY <manager> [java_runtime_31aad.create] Task failed 'fabric_plugin.tasks.run_script' -> Needed to prompt for a connection or sudo password (host: 192.168.32.196), but abort-on-prompts was set to True [attempt 6/6]
+2017-08-31 02:46:16 CFY <manager> [influxdb_b9ebb.create] Task started 'fabric_plugin.tasks.run_script' [attempt 6/6]
+2017-08-31 02:46:16 LOG <manager> [influxdb_b9ebb.create] INFO: preparing fabric environment...
+2017-08-31 02:46:16 LOG <manager> [influxdb_b9ebb.create] INFO: environment prepared successfully
+2017-08-31 02:46:16 CFY <manager> 'install' workflow execution failed: Workflow failed: Task failed 'fabric_plugin.tasks.run_script' -> Needed to prompt for a connection or sudo password (host: 192.168.32.196), but abort-on-prompts was set to True
+bootstrap failed! (Workflow failed: Task failed 'fabric_plugin.tasks.run_script' -> Needed to prompt for a connection or sudo password (host: 192.168.32.196), but abort-on-prompts was set to True)
 
-# network node
-service openvswitch restart
-service neutron-openvswitch-agent restart
-service neutron-l3-agent restart
-service neutron-dhcp-agent restart
-service neutron-metadata-agent restart
+Fatal error: Needed to prompt for a connection or sudo password (host: 192.168.32.196), but abort-on-prompts was set to True
 
-# compute node
-service neutron-openvswitch-agent restart
-service openvswitch restart
+Aborting.
 ```
-=======
-https://groups.google.com/forum/#!topic/cloudify-users/7Vo2fUVlLks
->>>>>>> de9b2f455ccdf41f77212dfdd201f8ec41561b44
