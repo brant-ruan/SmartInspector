@@ -203,12 +203,12 @@ Administration -> Add Media Types -> Select script type -> add alert.sh into Ale
 > See http://docs.opnfv.org/en/stable-danube/submodules/doctor/docs/release/configguide/feature.configuration.html#doctor-inspector for details.
 
 #### 110 Congress Doctor Driver
-
 ```shell
 ssh heat-admin@192.0.2.x # ssh onto controller
 sudo -i
 vim /etc/congress/congress.conf
 # add doctor driver to Congress
+# configuration should be done on all controller node
 # then find the `drivers=...` entry
 # append `congress.datasources.doctor_driver.DoctorDriver` to it
 service openstack‐congress‐server restart
@@ -870,6 +870,7 @@ Aborting.
 ```
 
 https://github.com/cloudify-cosmo/cloudify-manager-blueprints/issues/136
+<<<<<<< HEAD
 
 https://groups.google.com/forum/#!topic/cloudify-users/7Vo2fUVlLks
 
@@ -893,3 +894,6 @@ service neutron-metadata-agent restart
 service neutron-openvswitch-agent restart
 service openvswitch restart
 ```
+=======
+https://groups.google.com/forum/#!topic/cloudify-users/7Vo2fUVlLks
+>>>>>>> de9b2f455ccdf41f77212dfdd201f8ec41561b44
