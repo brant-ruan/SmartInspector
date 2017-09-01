@@ -854,7 +854,7 @@ cfy deployments delete -d DEPLOYMENT_ID
 ### 87 Error
 
 #### 870 Error When Deploying Cloudify
-
+May be caused by openstack internal internet problem
 ```
 [192.168.32.195] run: curl --fail -XPOST localhost:8101/api/v2/provider/context?update=False -H "Content-Type: application/json" -d @/tmp/provider-context.json
 [192.168.32.195] out: curl: (22) The requested URL returned error: 500 INTERNAL SERVER ERROR
@@ -873,7 +873,7 @@ https://github.com/cloudify-cosmo/cloudify-manager-blueprints/issues/136
 https://groups.google.com/forum/#!topic/cloudify-users/7Vo2fUVlLks
 
 #### 871 abort-on-prompts Was Set to True
-
+Caused by ssh user wrong configuration,cloudify CLI machine was trying to ssh to manager machine by ubuntu,default user name should be centos
 ```
 2017-08-31 02:46:16 LOG <manager> [java_runtime_31aad.create] ERROR: Exception raised on operation [fabric_plugin.tasks.run_script] invocation
 Traceback (most recent call last):
@@ -917,3 +917,4 @@ Fatal error: Needed to prompt for a connection or sudo password (host: 192.168.3
 
 Aborting.
 ```
+## Referenced materials 
