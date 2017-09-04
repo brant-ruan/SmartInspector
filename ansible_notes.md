@@ -18,6 +18,6 @@ Ansible script module
 
 execte bash scripts in a group of remote hosts
 ```shell
-ansible controller -m script -a "path-to-your-script" (--sudo) 
+ansible controller -m script -a "path-to-your-local-script" (--sudo) 
 ```
 

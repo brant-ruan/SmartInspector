@@ -2,6 +2,7 @@
 
 # on test_zhian
 # deploy clearwater via cloudify CLI 3.3.1
+cd ~/cloudify/cloudify-manager/
 mkdir blueprints
 cd blueprints
 git clone -b stable https://github.com/Orange-OpenSource/opnfv-cloudify-clearwater.git

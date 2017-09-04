@@ -1,8 +1,7 @@
 
 # not tested,network configuration file should be modified both controller and compute nodes
-# 
 ---
-- hosts: controller 
+- hosts: compute 
   user: heat-admin 
   sudo: yes       
   sudo_user: root  

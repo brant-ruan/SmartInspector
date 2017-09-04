@@ -68,11 +68,11 @@ echo  '#!/bin/bash' > newbie.sh
 echo -e "\n" >> newbie.sh
 echo "ssh -i ./newbie_test.pem ubuntu@192.168.32.200" >> newbie.sh
 chmod +x ./newbie.sh
-
-scp -i ./newbie_test.pem overcloudrc ubuntu@192.168.32.200:~/
-
 # change the quota
 ## increase limit of the number of instances
 openstack quota set admin --instances 30
 ## increase limit of the number of CPU
 openstack quota set admin --cores 30
+# wait virtual machine to start normally
+sleep 20
+scp -i ./newbie_test.pem overcloudrc ubuntu@192.168.32.200:~/
