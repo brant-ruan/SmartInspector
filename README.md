@@ -587,6 +587,11 @@ After creating the instance, you can simply run `./newbie.sh` to log on it.
 
 Before deploying Cloudify, you need to change openstack default quotas.
 
+The easiest way to do this is via ansible since you need to do the same modification in all three controller nodes in our deployment, ansible commands looks like this
+```shell
+ ansible controller -m script -a 'change_security_group_quota.sh' --sudo
+```
+
 ```shell
 # increase limit of the number of security group
 ## on controller (all controllers)
