@@ -649,7 +649,7 @@ cfy bootstrap --install-plugins -p openstack-manager-blueprint.yaml -i openstack
 
 ### 42 Clearwater
 
-Deploy clearwater via cloudify.
+#### Deploy clearwater via cloudify.
 
 ```shell
 # Prepare clearwater blueprints
@@ -674,6 +674,12 @@ You can also create and launch deployment via cloudify Web UI, just fill in prop
 
 
 Note that the specified version must be satisfied otherwise the process might not work.
+
+#### Run the clearwater-live-test 
+
+```shell
+rake test[clearwater.opnfv] SIGNUP_CODE=secret ELLIS=192.168.32.208 PROXY=192.168.32.202 GEMINI=10.67.79.15 MEMENTO_SIP=10.67.79.15  MOMENTO_HTTP=10.67.79.15 ELLIS_API_KEY=secret
+```
 
 ## 5 Doctor Tests
 

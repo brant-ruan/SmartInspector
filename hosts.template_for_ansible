@@ -1,0 +1,8 @@
+[controller]
+192.0.2.6  ansible_ssh_user=heat-admin
+192.0.2.10 ansible_ssh_user=heat-admin
+192.0.2.3  ansible_ssh_user=heat-admin
+
+[compute]
+192.0.2.5 ansible_ssh_user=heat-admin
+192.0.2.7 ansible_ssh_user=heat-admin
