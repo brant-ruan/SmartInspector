@@ -5,4 +5,3 @@
     sudo su;
     sed -i "s|^#quota_security_group.*$|quota_security_group = 50|" /etc/neutron/neutron.conf
     sed -i "s|^#quota_security_group_rule.*$|quota_security_group_rule = 500|" /etc/neutron/neutron.conf 
-    systemctl restart nova_schedler
