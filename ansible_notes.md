@@ -14,4 +14,10 @@ Ansible ping test
 ```shell
 ansible controller  -m ping
 ```
+Ansible script module 
+
+execte bash scripts in a group of remote hosts
+```shell
+ansible controller -m script -a "path-to-your-script" (--sudo) 
+```
 
