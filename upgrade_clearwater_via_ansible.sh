@@ -3,12 +3,12 @@
 # --------------------command here------------------------
 # scp -i cloudify-manager-kp.pem /home/ubuntu/.ssh/cloudify-agent-kp.pem centos@192.168.32.199:~
 #---------------------fommand finished--------------------
+
 cd ~
-sudo chmod +x cloudify-agent-kp.pem
+sudo chmod 600 cloudify-agent-kp.pem
 sudo yum install epel-release -y
 sudo yum update -y
 sudo yum install ansible -y
-
 
 # after install ansible, config ansible hosts file, your hosts file should looks like this
 # remove comments
