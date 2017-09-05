@@ -741,6 +741,9 @@ STUN/TURN/ICE      |
     Password       | <password>
     Use rport      | true (this is required if your SIP client is behind a NAT)
 ```
+Issues:
+- Connection lost after 15 seconds due to 'No ack received'
+- Both X-lite and Blink could not register successfully via TCP on one of our windows virtual machine, strangely on another windows virtual machine registering via tcp works properly
 
 ## 7 Summary
 
@@ -884,7 +887,9 @@ https://github.com/cloudify-cosmo/cloudify-manager-blueprints/issues/136
 https://groups.google.com/forum/#!topic/cloudify-users/7Vo2fUVlLks
 
 #### 871 abort-on-prompts Was Set to True
-Caused by ssh user wrong configuration,cloudify CLI machine was trying to ssh to manager machine by ubuntu,default user name should be centos
+May be caused by ssh user wrong configuration,cloudify CLI machine was trying to ssh to manager machine by ubuntu,default user name should be centos, cloudify default value is centos, no need to change it.
+
+Another issue could cause this problem could be due to openstack internal problem, cloudify CLI successfully bootstrap a manager VM, then associate a floating ip to the VM in order to ssh to VM do some necessary configuration, the floating ip doesn't work properly, cloudify CLI bootstrap process will failed due to time out.
 ```
 2017-08-31 02:46:16 LOG <manager> [java_runtime_31aad.create] ERROR: Exception raised on operation [fabric_plugin.tasks.run_script] invocation
 Traceback (most recent call last):
