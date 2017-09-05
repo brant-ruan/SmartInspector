@@ -37,3 +37,6 @@ echo -e "public_domain: '$m_cw_public_domain'\n" >> inputs/inputs.yaml
 cfy deployments create -b clearwater-3.3 -d clearwater-test --inputs inputs/inputs.yaml
 
 cfy executions start -w install -d clearwater-test
+
+# get outputs for deployment
+cfy deployments outputs -d clearwater-test
