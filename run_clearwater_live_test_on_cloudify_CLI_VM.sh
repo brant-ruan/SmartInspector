@@ -8,9 +8,10 @@ curl -sSL https://get.docker.com/ | sh
 # if some error occurs like this, 'Got permission denied while trying to connect to the Docker daemon socket'
 # fix by adding the current user to the docker group: sudo usermod -a -G docker $USER
 # log out of your account and then back log in
-docker pull opnfv/functest:danube.2.0
+# our opnfv version is danube 3.0
+docker pull opnfv/functest:danube.3.0
 # run the docker container
-docker run --dns=192.168.32.201 -it opnfv/functest:danube.2.0 /bin/bash
+docker run --dns=192.168.32.201 -it opnfv/functest:danube.3.0 /bin/bash
 # launch the test
 cd ~/repos/vnfs/vims-test
 source /etc/profile.d/rvm.sh
