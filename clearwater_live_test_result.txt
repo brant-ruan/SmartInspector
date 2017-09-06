@@ -1,0 +1,107 @@
+root@1f6fb6e7bd84:~/repos/vnfs/vims-test# rake test[clearwater.opnfv] SIGNUP_CODE=secret
+Basic Call - Mainline (TCP) - (6505550160, 6505550105) Passed
+Basic Call - Tel URIs (TCP) - (6505550113, 6505550865) Passed
+Basic Call - Unknown number (TCP) - (6505550051, 6505550127) Passed
+Basic Call - Rejected by remote endpoint (TCP) - (6505550233, 6505550818) Passed
+Basic Call - Messages - Pager model (TCP) - (6505550699, 6505550498) Passed
+Basic Call - Pracks (TCP) - (6505550897, 6505550531) Passed
+Basic Registration (TCP) - (6505550121) Passed
+Multiple Identities (TCP) - (6505550038, 6505550266) Passed
+Call Barring - Outbound Rejection (TCP) - (6505550643, 6505550853) Passed
+Call Barring - Allow non-international call (TCP) - Skipped (No PSTN support)
+   - Call with PSTN=true to run test
+Call Barring - Reject international call (TCP) - Skipped (No PSTN support)
+   - Call with PSTN=true to run test
+Call Barring - Inbound Rejection (TCP) - (6505550463, 6505550730) Passed
+Call Diversion AS - Unconditional (TCP) - Skipped (No Call Diversion AS hostname provided)
+   - Call with CDIV_AS=<hostname>
+Call Diversion AS - Busy (TCP) - Skipped (No Call Diversion AS hostname provided)
+   - Call with CDIV_AS=<hostname>
+Call Diversion AS - No answer (TCP) - Skipped (No Call Diversion AS hostname provided)
+   - Call with CDIV_AS=<hostname>
+Call Diversion - Not registered (TCP) - (6505550056, 6505550273, 6505550894) Passed
+Call Diversion - Not reachable (not registered) (TCP) - (6505550992, 6505550342, 6505550271) Passed
+Call Diversion - Not reachable (408) (TCP) - (6505550601, 6505550775, 6505550914) Passed
+Call Diversion - Not reachable (503) (TCP) - (6505550323, 6505550650, 6505550073) Passed
+Call Diversion - Not reachable (500) (TCP) - (6505550814, 6505550646, 6505550997) Passed
+Call Diversion - Busy (TCP) - (6505550530, 6505550634, 6505550963) Passed
+Call Diversion - Unconditional (TCP) - (6505550534, 6505550978, 6505550560) Passed
+Call Diversion - No answer (TCP) - (6505550011, 6505550703, 6505550645) Passed
+Call Diversion - Bad target URI (TCP) - (6505550351, 6505550539) Passed
+Call Diversion - Audio-only call (TCP) - (6505550902, 6505550353, 6505550985, 6505550107) Passed
+Call Diversion - Audio-video call (TCP) - (6505550304, 6505550452, 6505550166, 6505550955) Passed
+Call Waiting - Accepted (TCP) - (6505550868, 6505550813, 6505550484) Passed
+Call Waiting - Cancelled (TCP) - (6505550023, 6505550851, 6505550180) Passed
+CANCEL - Mainline (TCP) - (6505550834, 6505550843) Passed
+Filtering - Accept-Contact (TCP) - (6505550569, 6505550499) Passed
+Filtering - Accept-Contact no match (TCP) - (6505550766, 6505550037) Passed
+Filtering - Accept-Contact negated match (TCP) - (6505550693, 6505550094) Passed
+Filtering - RFC3841 example (TCP) - (6505550774, 6505550818) Passed
+Filtering - Reject-Contact no match (TCP) - (6505550036, 6505550068) Passed
+Filtering - Reject-Contact match (TCP) - (6505550294, 6505550778) Passed
+Gemini - INVITE - VoIP device answers (TCP) - Skipped (No gemini hostname provided)
+   - Call with GEMINI=<hostname>
+Gemini - INVITE - Mobile device answers (TCP) - Skipped (No gemini hostname provided)
+   - Call with GEMINI=<hostname>
+Gemini - INVITE - VoIP device rejects (TCP) - Skipped (No gemini hostname provided)
+   - Call with GEMINI=<hostname>
+Gemini - INVITE - Mobile device rejects (TCP) - Skipped (No gemini hostname provided)
+   - Call with GEMINI=<hostname>
+Gemini - INVITE - Mobile device rejects with a 480 (TCP) - Skipped (No gemini hostname provided)
+   - Call with GEMINI=<hostname>
+Gemini - INVITE - Both reject, choose mobile response (TCP) - Skipped (No gemini hostname provided)
+   - Call with GEMINI=<hostname>
+Gemini - INVITE - Both reject, choose VoIP response (TCP) - Skipped (No gemini hostname provided)
+   - Call with GEMINI=<hostname>
+Gemini - INVITE - Successful call with GR (TCP) - Skipped (No gemini hostname provided)
+   - Call with GEMINI=<hostname>
+Gemini - INVITE - Failed call with GR (TCP) - Skipped (No gemini hostname provided)
+   - Call with GEMINI=<hostname>
+Gemini - INVITE - Successful call with Accept-Contact (TCP) - Skipped (No gemini hostname provided)
+   - Call with GEMINI=<hostname>
+Gemini - INVITE - Failed call with Accept-Contact (TCP) - Skipped (No gemini hostname provided)
+   - Call with GEMINI=<hostname>
+Gemini - SUBSCRIBE - Mobile Notifies (TCP) - Skipped (No gemini hostname provided)
+   - Call with GEMINI=<hostname>
+Gemini - SUBSCRIBE - Joint 408 (TCP) - Skipped (No gemini hostname provided)
+   - Call with GEMINI=<hostname>
+GRUU - REGISTER - two bindings with and without GRUU (TCP) - (6505550539) Passed
+GRUU - REGISTER - binding suggested GRUU (TCP) - (6505550150) Passed
+GRUU - REGISTER - instance ID requires escaping (TCP) - (6505550422) Passed
+GRUU - REGISTER - three bindings with GRUUs (TCP) - (6505550624) Passed
+GRUU - Call - first endpoint GRUU as target (TCP) - (6505550362, 6505550278) Passed
+GRUU - Call - second endpoint GRUU as target (TCP) - (6505550599, 6505550308) Passed
+GRUU - Call - only GRUU as target (TCP) - (6505550848, 6505550031) Passed
+GRUU - Call - AoR as target (TCP) - (6505550314, 6505550791) Passed
+GRUU - Call - unknown GRUU as target (TCP) - (6505550846, 6505550629) Passed
+GRUU - Call - unknown GRUU as target - no GRUUs assigned (TCP) - (6505550265, 6505550749) Passed
+GRUU - Call - Reject-Contact interop (TCP) - (6505550616, 6505550562) Passed
+GRUU - Call - Accept-Contact interop (TCP) - (6505550606, 6505550687) Passed
+GRUU - Call - AoR with other param as target (TCP) - (6505550048, 6505550926) Passed
+GRUU - Call - GRUU with other param as target (TCP) - (6505550846, 6505550779) Passed
+Live Call - Dial out to a real number (TCP) - Skipped (No live number given)
+   - Call with LIVENUMBER=<number>
+Memento - Incorrect Password (TCP) - Skipped (No memento hostnames provided)
+   - Call with MEMENTO_SIP=<SIP hostname> and MEMENTO_HTTP=<HTTP hostname>
+Memento - Wrong Call List (TCP) - Skipped (No memento hostnames provided)
+   - Call with MEMENTO_SIP=<SIP hostname> and MEMENTO_HTTP=<HTTP hostname>
+Memento - Basic Call (TCP) - Skipped (No memento hostnames provided)
+   - Call with MEMENTO_SIP=<SIP hostname> and MEMENTO_HTTP=<HTTP hostname>
+Memento - Unknown Number (TCP) - Skipped (No memento hostnames provided)
+   - Call with MEMENTO_SIP=<SIP hostname> and MEMENTO_HTTP=<HTTP hostname>
+Memento - Rejected Call (TCP) - Skipped (No memento hostnames provided)
+   - Call with MEMENTO_SIP=<SIP hostname> and MEMENTO_HTTP=<HTTP hostname>
+Memento - Cancelled Call (TCP) - Skipped (No memento hostnames provided)
+   - Call with MEMENTO_SIP=<SIP hostname> and MEMENTO_HTTP=<HTTP hostname>
+Memento - Privacy Call (TCP) - Skipped (No memento hostnames provided)
+   - Call with MEMENTO_SIP=<SIP hostname> and MEMENTO_HTTP=<HTTP hostname>
+Memento - Barred Call (TCP) - Skipped (No memento hostnames provided)
+   - Call with MEMENTO_SIP=<SIP hostname> and MEMENTO_HTTP=<HTTP hostname>
+Memento - Busy Call Forwarding (TCP) - Skipped (No memento hostnames provided)
+   - Call with MEMENTO_SIP=<SIP hostname> and MEMENTO_HTTP=<HTTP hostname>
+Off-net calls - tel: URI (TCP) - Skipped (No off-net number given)
+   - Call with OFF_NET_TEL=<a number set up in ENUM/BGCF to route to port 5072 on this machine>
+Off-net calls - sip: URI (TCP) - Skipped (No off-net number given)
+   - Call with OFF_NET_TEL=<a number set up in ENUM/BGCF to route to port 5072 on this machine>
+SUBSCRIBE - reg-event (TCP) - (6505550741) Passed
+SUBSCRIBE - reg-event with a GRUU (TCP) - (6505550348) Passed
