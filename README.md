@@ -38,7 +38,8 @@ To visit dashboard from outside.
 screen -S opnfv_dashboard
 # in screen
 socat tcp-l:10001,reuseaddr,fork tcp:192.168.37.18:80
-# 192.168.37.18 is the controller's IP
+# 192.168.37.18 is the controller's IP address
+# default ip looks like 192.0.2.x by apex installer
 ## the firewalld may block the connections
 service firewalld stop
 ```
@@ -193,7 +194,7 @@ chmod +x /usr/local/zabbix/share/zabbix/alertscripts/alertscript.sh
 ```
 
 ##### 1017 Add Media
-
+Configuration in zabbix web ui
 ```
 Administration -> Add Media Types -> Select script type -> add alert.sh into AlertScriptsPath
 ```
