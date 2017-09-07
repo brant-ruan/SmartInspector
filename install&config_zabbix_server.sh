@@ -1,7 +1,13 @@
 #!/bin/bash
 
-#author : zangyuan
-#this script is used for installing and config zabbix-server on openstack controller node.
+# author : zangyuan
+# sudo needed
+# this script is used for installing and config zabbix-server on openstack controller node.
+
+# firstly make sure mysql is started
+sudo systemctl enable mariadb
+
+sudo systemctl start mariadb 
 
 rpm -ivh http://repo.zabbix.com/zabbix/3.0/rhel/7/x86_64/zabbix-release-3.0-1.el7.noarch.rpm
 
@@ -20,8 +26,7 @@ zcat create.sql.gz | mysql -uzabbix -p zabbix
 
 sed -i "s/# DBPassword=/DBPassword=zabbix/g" /etc/zabbix/zabbix_server.conf
 
-sed -i "s/# php_value date.timezone Europe/Riga/php_value date.timezone Asia/Shanghai/g" /etc/httpd/conf.d/zabbix.conf
-
+sed -i "s/# php_value date.timezone Europe\/Riga/php_value date.timezone Asia\/Shanghai/g" /etc/httpd/conf.d/zabbix.conf
 
 systemctl restart httpd 
 

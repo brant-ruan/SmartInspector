@@ -59,12 +59,12 @@ sudo yum install zabbix-agent
 
 # PSK encryption
 sudo sh -c "openssl rand -hex 32 > /etc/zabbix/zabbix_agentd.psk"
+## content of this file may be needed in zabbix web ui configuration
 cat /etc/zabbix/zabbix_agentd.psk
-## now copy the PSK
 
 sudo vi /etc/zabbix/zabbix_agentd.conf
 ## configure zabbix server
-Server=zabbix-server-ip
+Server= your zabbix server ip
 ## configure connection between server and agent
 TLSConnect=psk
 TLSAccept=psk
@@ -125,7 +125,7 @@ sudo systemctl enable zabbix-server
 
 ##### 1013 Zabbix Web UI
 
-Visit http://localhost/zabbix/
+If you install zabbix server on controller node, forward controller node ip may be needed to access zabbix web ui on your brower since controller ip is not on the same network with your real machine
 
 ##### 1014 Add Host
 

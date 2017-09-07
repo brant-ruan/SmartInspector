@@ -1,7 +1,8 @@
 #!/bin/bash
 
-#author:zangyuan
-#this script is used to install and config zabbix-agent on compute node
+# author:zangyuan
+# this script is used to install and config zabbix-agent on compute node
+# sudo needed, params need to be passed to bash as command line arguments
 # $1 zabbix-server ip 
 # $2 PSK sequence number  such as : 001、002、003
 
@@ -10,8 +11,6 @@ rpm -ivh http://repo.zabbix.com/zabbix/3.0/rhel/7/x86_64/zabbix-release-3.0-1.el
 yum install zabbix-agent
 
 sh -c "openssl rand -hex 32 > /etc/zabbix/zabbix_agentd.psk"
-
-psk=$(cat /etc/zabbix/zabbix_agentd.psk)
 
 sed -i "s/Server=127.0.0.1/Server=$1/g" /etc/zabbix/zabbix_agentd.conf
 
