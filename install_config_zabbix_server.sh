@@ -22,7 +22,6 @@ sed -i "s/# DBPassword=/DBPassword=zabbix/g" /etc/zabbix/zabbix_server.conf
 
 sed -i "s/# php_value date.timezone Europe/Riga/php_value date.timezone Asia/Shanghai/g" /etc/httpd/conf.d/zabbix.conf
 
-sed -i "s/        # php_value date.timezone Europe\/Riga/        php_value date.timezone Asia\/Shanghai/g" /etc/httpd/conf.d/zabbix.conf
 
 systemctl restart httpd 
 
