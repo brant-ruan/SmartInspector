@@ -22,7 +22,6 @@ hostname="overcloud-novacompute-0.opnfvlf.org"
 date=$(date +%Y-%m-%d)
 hms=$(date +%H:%M:%S)
 sendtime=${date}T${hms}Z 
-date
 curl -i -X PUT $congress_url/v1/data-sources/doctor/tables/events/rows -H "Content-Type: application/json" -d "[{\"time\":$sendtime,\"type\":$eventtype,\"details\":{\"hostname\":$hostname,\"status\":\"down\",\"monitor\":\"zabbix1\",\"monitor_event_id\":\"111\"}}]"  -H "X-Auth-Token: $token"
 
 
