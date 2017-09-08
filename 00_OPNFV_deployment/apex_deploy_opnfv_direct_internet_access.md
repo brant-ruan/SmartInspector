@@ -7,7 +7,7 @@ opnfv-clean
 cd /etc/opnfv-apex/
 opnfv-deploy -v --virtual-cpus 8 --virtual-default-ram 64 --virtual-compute-ram 96 -n network_settings.yaml -d os-nosdn-nofeature-ha.yaml --debug
 ```
-## network configuration
+## Manual network configuration 
 
 Find your compute nodes and controller nodes ip
 ```shell
@@ -32,3 +32,12 @@ vim /etc/sysconfig/network-scripts/route-br-ex
 change default gateway to 192.168.32.1, you can see something like 'default via 192.168.32.1'
 ### on compute nodes
 Firstly 'route -n' to find out interface associated with 192.168.32.x ip address, then edit ifcfg-xxx and route-xxx file
+## Network configuration via Ansible 
+Make sure you hosts file was configured properly
+```shell
+ansible controller -m ping 
+```
+```shell
+ansible compute -m ping
+```
+You should see all green output, you had better disable ansible SSH key host checking for better experience
