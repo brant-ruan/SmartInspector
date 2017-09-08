@@ -53,3 +53,6 @@ Make sure the ip which is on the same network with your Jumphost network dev is 
 ansible_playbook opnfv_direct_internet_access_network_configuration_compute.yml
 ```
 If everything works fine, you should see all green output
+
+## Last step
+You may need to delete the subnet of default external network and creat a new one because it's network mask was generated during Apex installing process (default to 25) and is not the one we want it to be, netmask should be /24 in our installation process.
