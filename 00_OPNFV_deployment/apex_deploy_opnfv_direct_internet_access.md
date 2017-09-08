@@ -20,7 +20,7 @@ Network configuration is needed in all nodes
 ```shell
 ssh heat-admin@192.0.2.x
 ```
-### on controller nodes
+### On controller nodes
 ```shell
 sudo -i
 vim /etc/sysconfig/network-scripts/ifcfg-br-ex
@@ -30,7 +30,7 @@ change netmask to 255.255.255.0
 vim /etc/sysconfig/network-scripts/route-br-ex
 ```
 change default gateway to 192.168.32.1, you can see something like 'default via 192.168.32.1'
-### on compute nodes
+### On compute nodes
 Firstly 'route -n' to find out interface associated with 192.168.32.x ip address, then edit ifcfg-xxx and route-xxx file
 ## Network configuration via Ansible 
 Make sure you hosts file was configured properly
@@ -41,3 +41,15 @@ ansible controller -m ping
 ansible compute -m ping
 ```
 You should see all green output, you had better disable ansible SSH key host checking for better experience
+
+Firstly make sure your controller and compute nodes ip configuration is correct
+### On controller nodes
+```shell
+ansible-playbook opnfv_direct_internet_access_network_configuration_controller.yml
+```
+### On compute nodes
+Make sure the ip which is on the same network with your Jumphost network dev is eth2 before execute this command
+```shell
+ansible_playbook opnfv_direct_internet_access_network_configuration_compute.yml
+```
+If everything works fine, you should see all green output
