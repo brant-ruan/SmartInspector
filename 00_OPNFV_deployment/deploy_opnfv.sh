@@ -1,8 +1,6 @@
 #!/bin/bash
-
-# on real server
-# to deploy opnfv using apex
-
+# on HW server
+# to deploy opnfv via Apex
 opnfv-clean
 cd /etc/opnfv-apex 
 screen -S apex_deploy_screen \
