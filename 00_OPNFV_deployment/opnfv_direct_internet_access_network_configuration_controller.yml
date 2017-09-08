@@ -3,7 +3,7 @@
   sudo: yes       
   tasks:
   - name: edit network configuration file
-    shell: sed -i '9cNETMASK=255.255.255.0' /etc/sysconfig/network-scripts/ifcfg-eth2 && sed -i '1cdefault via 192.168.32.1 dev br-ex' /etc/sysconfig/network-scripts/route-br-ex
+    shell: sed -i '10cNETMASK=255.255.255.0' /etc/sysconfig/network-scripts/ifcfg-br-ex && sed -i '1cdefault via 192.168.32.1 dev br-ex' /etc/sysconfig/network-scripts/route-br-ex
     notify:
     - restart network 
   handlers:
