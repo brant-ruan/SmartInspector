@@ -1,16 +1,21 @@
 [TOC]
 
-# Smart Inspector All in One
+# Smart Inspector 
+This is our OPNFV doctor project experimental configuration tutorials
 
-## 0 OPNFV Apex Deployment
+![](doctor.png)
+We use zabbix as our Monitor, openstack congress as Inspector.
 
-### 00 Deployment
+
+## 0 OPNFV Deployment
+
+### 00 Deployment via Apex 
 
 ```shell
-# on real server 192.168.32.20
+# on our real server 192.168.32.20,E7 with 512G ram
+screen -S apex_deploy_screen
 opnfv-clean
 cd /etc/opnfv-apex 
-screen -S apex_deploy_screen
 # in screen apex_deploy_screen
 opnfv-deploy -v --virtual-cpus 8 \
     --virtual-default-ram 64 --virtual-compute-ram 96 \
@@ -19,349 +24,41 @@ opnfv-deploy -v --virtual-cpus 8 \
 
 ### 01 NAT (discard)
 
-To make Internet accessible from VMs on Overcloud.
+If you openstack external network is not on the same network with your Jumphost (your read HW server),in order to make Internet accessible to VMs on Overcloud, NAT is necessary to forward you oepnstack external network
 
 ```shell
-# on real server
-## turn on forward function
+# on HW server
+## allow forward
 sysctl net.ipv4.ip_forward=1
+#iptables -t nat -A POSTROUTING -s your_openstack_external_network_ip/netmask -j SNAT --to your_HW_network_ip
+# example:
 iptables -t nat -A POSTROUTING -s 192.168.122.0/24 -j SNAT --to 192.168.32.20
 iptables -A FORWARD -m state --state ESTABLISHED,RELATED -j ACCEPT
 ```
 
 ### 02 Dashboard (discard)
 
-To visit dashboard from outside.
+To visit dashboard from your browser.
 
 ```shell
-# on real server
+# on HW server
 screen -S opnfv_dashboard
-# in screen
+# your can find proper ip address in your overcloudrc file
 socat tcp-l:10001,reuseaddr,fork tcp:192.168.37.18:80
-# 192.168.37.18 is the controller's IP address
-# default ip looks like 192.0.2.x by apex installer
-## the firewalld may block the connections
+## the firewalld may block some connections
 service firewalld stop
 ```
 
-## 1 Doctor Configurations
-
-### 10 Monitor
-
-#### 100 Zabbix Agent
-
-On each compute node:
-
-```shell
-# install
-sudo rpm -ivh http://repo.zabbix.com/zabbix/3.0/rhel/7/x86_64/zabbix-release-3.0-1.el7.noarch.rpm
-sudo yum install zabbix-agent
-
-# PSK encryption
-sudo sh -c "openssl rand -hex 32 > /etc/zabbix/zabbix_agentd.psk"
-## content of this file may be needed in zabbix web ui configuration
-cat /etc/zabbix/zabbix_agentd.psk
-
-sudo vi /etc/zabbix/zabbix_agentd.conf
-## configure zabbix server
-Server= your zabbix server ip
-## configure connection between server and agent
-TLSConnect=psk
-TLSAccept=psk
-TLSPSKIdentity=PSK 001
-## when you add host in zabbix web agent, you should use this PSK ID
-TLSPSKFile=/etc/zabbix/zabbix_agentd.psk
-
-# start agent
-sudo systemctl start zabbix-agent
-sudo systemctl enable zabbix-agent
-## check status
-sudo systemctl status zabbix-agent
-```
-
-#### 101 Zabbix Server
-
-On one controller node (One is enough):
-
-##### 1010 Zabbix Server
-
-```shell
-# install
-sudo rpm -ivh http://repo.zabbix.com/zabbix/3.0/rhel/7/x86_64/zabbix-release-3.0-1.el7.noarch.rpm
-sudo yum install zabbix-server-mysql zabbix-web-mysql
-sudo yum install zabbix-agent # to monitor itself
-```
-
-##### 1011 MySQL
-
-```shell
-# SQL instructions
-## create database
-create database zabbix character set utf8;
-## create user and grant privileges
-grant all privileges on zabbix.* to zabbix@localhost identified by 'your_password';
-flush privileges;
-
-# import schema
-cd /usr/share/doc/zabbix-server-mysql-3.0.4/
-zcat create.sql.gz | mysql -uzabbix-p zabbix
-sudo vi /etc/zabbix/zabbix_server.conf
-# configure the password of database
-DBPassword=...
-```
-
-##### 1012 PHP
-
-```shell
-sudo vi /etc/httpd/conf.d/zabbix.conf
-# modify things below
-php_value date.timezone Asia/Shanghai
-
-sudo systemctl restart httpd
-sudo systemctl start zabbix-server
-sudo systemctl status zabbix-server
-sudo systemctl enable zabbix-server
-```
-
-##### 1013 Zabbix Web UI
-
-If you install zabbix server on controller node, forward controller node ip may be needed to access zabbix web ui on your brower since controller ip is not on the same network with your real machine
-
-##### 1014 Add Host
-
-In Web UI:
-
-```
-Configuration 
-    -> Hosts -> Create host -> Configure host name/host ip
-        -> Select host group (by default Linux Server group)
-Templates -> Template OS Linux -> Encryption -> PSK
-    -> Configure PSK ID (use the ID in part 100)
-    -> Configure PSK value (from /etc/zabbix/zabbix_agentd.psk in zabbix agent)
-```
-
-##### 1015 Add Item/Trigger/Action
-
-```
-Configure Item -> Trigger -> Action
-```
-
-##### 1016 Alert Script
-
-> See https://github.com/openstack/congress/blob/master/congress/datasources/doctor_driver.py for details about doctor driver.  
-> See https://www.zabbix.com/documentation/3.2/manual/config/notifications/media/script for Zabbix details about alert script.  
-> See `man curl` for bonus :)
-
-```shell
-# Doctor driver API
-PUT /v1/data‐sources/doctor/tables/events/rows
-```
-
-1. curl KeyStone RESTful API using HTTP POST for token
-2. curl Congress RESTful API using the token above
-
-`alert.sh` sample:
-
-```shell
-#!/bin/bash
-
-username="admin"
-password="4MbCBXaqHJmARqpWzFNJFQF2T"
-congress_url="http://192.168.32.161:1789"
-keystone_url="http://192.168.32.161:5000/v2.0"
-# fetch token
-curl $keystone_url"/tokens" -X POST -H "Content-Type: application/json" -H "Accept: application/json"  -d '{"auth": {"tenantName": "admin", "passwordCredentials": {"username": "admin", "password": "4MbCBXaqHJmARqpWzFNJFQF2T"}}}' > result.json
-
-token0=$(jq .access.token.id result.json)
-
-token=${token0//\"/}
-
-rm result.json
-
-sendtime=`date`
-
-# send data
-curl -i -X PUT $congress_url/v1/data-sources/doctor/tables/events/rows -H "Content-Type: application/json" -d '[{"time":"2016-02-22T11:48:55Z","type":"compute.host.down","details":{"hostname":"overcloud-novacompute-0.opnfvlf.org","status":"down","monitor":"zabbix1","monitor_event_id":"111"}}]'  -H "X-Auth-Token: $token"
-```
-
-Then
-
-```shell
-chown zabbix.zabbix /usr/local/zabbix/share/zabbix/alertscripts/alertscript.sh
-chmod +x /usr/local/zabbix/share/zabbix/alertscripts/alertscript.sh
-```
-
-##### 1017 Add Media
-Configuration in zabbix web ui
-```
-Administration -> Add Media Types -> Select script type -> add alert.sh into AlertScriptsPath
-```
-
-### 11 Inspector
-
-> See http://docs.opnfv.org/en/stable-danube/submodules/doctor/docs/release/configguide/feature.configuration.html#doctor-inspector for details.
-
-#### 110 Congress Doctor Driver
-```shell
-ssh heat-admin@192.0.2.x # ssh onto controller
-sudo -i
-vim /etc/congress/congress.conf
-# add doctor driver to Congress
-# configuration should be done on all controller node
-# then find the `drivers=...` entry
-# append `congress.datasources.doctor_driver.DoctorDriver` to it
-service openstack‐congress‐server restart
-```
-
-```shell
-source overcloudrc
-openstack congress datasource create doctor doctor
-```
-
-#### 111 Congress Policies 
-
-> See https://docs.openstack.org/congress/latest/user/policy.html for details about policy.
-
-Follow statements below and create policies needed.
-
-```shell
-openstack congress policy rule create \
-    ‐‐name host_down classification \
-    'host_down(host) :‐ doctor:events(hostname=host, type="compute.host.down", status="down")'
-```
-
-```shell
-openstack congress policy rule create \
-    ‐‐name active_instance_in_host classification \
-    'active_instance_in_host(vmid, host) :‐ nova:servers(id=vmid, host_name=host, status="ACTIVE")'
-```
-
-```shell
-openstack congress policy rule create \
-    ‐‐name host_force_down classification \
-    'execute[nova:services.force_down(host,  "nova‐compute", "True")] :‐ host_down(host)'
-```
-
-```shell
-openstack congress policy rule create \
-    ‐‐name error_vm_states classification \
-    'execute[nova:servers.reset_state(vmid, "error")] :‐ host_down(host), active_instance_in_host(vmid, host)'
-```
-
-### 12 Controller
-
-> See https://lingxiankong.github.io/2017-07-04.html for details.  
-> See https://docs.openstack.org/newton/config-reference/compute/config-options.html, https://docs.openstack.org/nova/14.0.7/notifications.html for details about Nova.  
-> See https://docs.openstack.org/newton/config-reference/telemetry/samples/event_definitions.yaml.html for details about Ceilometer.  
-> See https://docs.openstack.org/aodh/latest/contributor/event-alarm.html, https://docs.openstack.org/aodh/latest/admin/telemetry-alarms.html#event-based-alarm, https://github.com/openstack/aodh/blob/master/aodh/notifier/rest.py for details about Aodh.
-
-```shell
-ssh heat-admin@192.0.2.x # ssh onto controller
-sudo -i
-```
-
-#### 120 Nova
-
-```shell
-vim /etc/nova/nova.conf
-
-# ensure entries below
-notify_on_state_change=vm_and_task_state
-[oslo_messaging_notifications]
-driver=messagingv2
-topics=notifications
-```
-
-#### 121 Ceilometer
-
-```shell
-vim /etc/ceilometer/event_pipeline.yaml
-
-# add publishers "notifier://?topic=alarm.all"
-‐‐‐
-sources:
-    ‐ name: event_source
-        events:
-            ‐ "*"
-        sinks:
-            ‐ event_sink
-sinks:
-    ‐ name: event_sink
-        transformers:
-        publishers:
-            ‐ notifier://
-            ‐ notifier://?topic=alarm.all
-```
-
-```shell
-# restart ceilometer
-service openstack-ceilometer-notification restart
-service openstack-ceilometer-central restart
-```
-
-#### 122 Aodh
-
-```shell
-# configurations
-vim /etc/aodh/aodh.conf
-
-# by default the configurations are right; just ensure it
-[listener]
-event_alarm_topic = alarm.all
-```
-
-```shell
-# restart aodh
-service openstack-aodh-listener restart
-service openstack-aodh-notifier restart
-```
-
-```shell
-# create alarm rule
-aodh alarm create \
-    ‐‐name test_alarm \
-    ‐‐type event \
-    ‐‐alarm‐action "http://127.0.0.1:12346/failure" \
-    ‐‐repeat‐actions false \
-    ‐‐event‐type compute.instance.update \
-    ‐‐query "traits.state=string:error"
-```
-
-(If you use `consumer.py` in doctor tests it will listen at `12346` port. See http://docs.opnfv.org/en/stable-danube/submodules/doctor/docs/release/userguide/feature.userguide.html#immediate-notification for details.)
-
-```shell
-# to disable an alarm rule
-aodh alarm update ‐‐enabled False ALARM_ID
-# to delete an alarm rule
-aodh alarm delete ALARM_ID
-```
-
-### 13 DIY Server
-
-(DIY Server should run on the controller node)
-
-#### 130 Source Code
-
-```python
-#!/usr/bin/env python
-```
-
-[Remain]
-
-### 14 Tacker
-
-[Remain]
-
-## 2 Live Migration Configurations
+## 1 OpenStack Live Migration Configurations
 
 > See https://docs.openstack.org/nova/latest/admin/configuring-migrations.html for details.  
 > See http://www.danplanet.com/blog/2016/03/03/evacuate-in-nova-one-command-to-confuse-us-all/ for more descriptions.
 
-### 20 Ping
+### 10 Ping
 
 Ensure all the compute nodes and controller nodes are able to `ping` each other by the hostname successfully. By default `/etc/hosts` has recorded all the maps needed. Your mission is just ensuring that.
 
-### 21 VNC
+### 11 VNC
 
 Ensure these entries below exist in `/etc/nova/nova.conf` on all the nodes.
 
@@ -370,7 +67,7 @@ vncserver_proxyclient_address=127.0.0.1
 vncserver_listen=0.0.0.0
 ```
 
-### 22 NFS Server
+### 12 NFS Server
 
 Install&configure NFS server on one controller.
 
@@ -416,7 +113,7 @@ systemctl restart rpcidmapd.service
 systemctl restart nfs-server.service
 ```
 
-### 23 NFS Client
+### 13 NFS Client
 
 Install&client NFS client on each compute node.
 
@@ -474,7 +171,7 @@ systemctl restart libvirtd.service
 systemctl restart openstack-nova-compute
 ```
 
-### 24 iptables
+### 14 iptables
 
 ```
 # on the controller node (which holds the NFS server)
@@ -483,7 +180,7 @@ iptables -A INPUT -p tcp -m multiport --ports 16509 \
     -m comment --comment "libvirt" -j ACCEPT
 ```
 
-### 25 UID/GID
+### 15 UID/GID
 
 Check UID/GID on the controller.
 
@@ -499,7 +196,7 @@ usermod -u uid nova
 groupmod -g gid nova
 ```
 
-### 26 Evacuation&Migration
+### 16 Evacuation&Migration
 
 ```shell
 # just some common commands
@@ -510,9 +207,324 @@ nova live-migration
 nova evacuate
 ```
 
-## 3 Instance Creation
+## 2 Doctor Configuration
 
-Before running the script, you need to put all the images you need in `~/images`. Currently we put four images in it:
+### 20 Monitor
+We use Zabbix as our monitor 
+#### 200 Zabbix Agent Configuration
+
+On each compute node:
+
+```shell
+# install
+sudo rpm -ivh http://repo.zabbix.com/zabbix/3.0/rhel/7/x86_64/zabbix-release-3.0-1.el7.noarch.rpm
+sudo yum install zabbix-agent
+
+# PSK encryption
+sudo sh -c "openssl rand -hex 32 > /etc/zabbix/zabbix_agentd.psk"
+## content of this file may be needed in zabbix web ui configuration
+cat /etc/zabbix/zabbix_agentd.psk
+
+sudo vi /etc/zabbix/zabbix_agentd.conf
+## configure zabbix server
+Server= your zabbix server ip
+## configure connection between server and agent
+TLSConnect=psk
+TLSAccept=psk
+TLSPSKIdentity=PSK 001
+## when you add host in zabbix web agent, you should use this PSK ID
+TLSPSKFile=/etc/zabbix/zabbix_agentd.psk
+
+# start agent
+sudo systemctl start zabbix-agent
+sudo systemctl enable zabbix-agent
+## check status
+sudo systemctl status zabbix-agent
+```
+
+#### 201 Zabbix Server Configuration
+
+On one controller node (One is enough):
+
+##### 2010 install Zabbix Server
+
+```shell
+# install
+sudo rpm -ivh http://repo.zabbix.com/zabbix/3.0/rhel/7/x86_64/zabbix-release-3.0-1.el7.noarch.rpm
+sudo yum install zabbix-server-mysql zabbix-web-mysql
+sudo yum install zabbix-agent # to monitor itself
+```
+
+##### 2011 Config Database for Zabbix Server 
+Firstly make sure you MySQL service is running
+```shell
+sudo systemctl enable mariadb
+sudo systemctl start mariadb
+```
+Create database for Zabbix server
+```shell
+# SQL instructions
+## create database
+create database zabbix character set utf8;
+## create user and grant privileges
+grant all privileges on zabbix.* to zabbix@localhost identified by 'your_password';
+flush privileges;
+
+# import schema
+cd /usr/share/doc/zabbix-server-mysql-3.0.4/
+zcat create.sql.gz | mysql -uzabbix-p zabbix
+sudo vi /etc/zabbix/zabbix_server.conf
+# configure the password of database
+DBPassword=...
+```
+
+##### 2012 Httpd 
+
+```shell
+sudo vi /etc/httpd/conf.d/zabbix.conf
+# modify things below
+php_value date.timezone Asia/Shanghai
+
+sudo systemctl restart httpd
+sudo systemctl start zabbix-server
+sudo systemctl status zabbix-server
+sudo systemctl enable zabbix-server
+```
+
+##### 2013 Zabbix Web UI
+
+Forwarding controller ip where your Zabbix server is installed may be necessary to access zabbix web ui on your local browser because controller ip is not on the same network with your Jumphost
+
+##### 2014 Zabbix Add Host To Be Monitored
+
+In Web UI:
+
+```
+Configuration 
+    -> Hosts -> Create host -> Configure host name/host ip
+        -> Select host group (by default Linux Server group)
+Templates -> Template OS Linux -> Encryption -> PSK
+    -> Configure PSK ID (use the ID in part 100)
+    -> Configure PSK value (from /etc/zabbix/zabbix_agentd.psk in zabbix agent)
+```
+
+##### 2015 Add Item/Trigger/Action
+
+```
+Configure Item -> Trigger -> Action
+```
+
+##### 2016 Alert Script
+
+> See https://github.com/openstack/congress/blob/master/congress/datasources/doctor_driver.py for details about doctor driver.  
+> See https://www.zabbix.com/documentation/3.2/manual/config/notifications/media/script for Zabbix details about alert script.  
+> See `man curl` for bonus :)
+
+```shell
+# Doctor driver API
+PUT /v1/data‐sources/doctor/tables/events/rows
+```
+
+1. curl KeyStone RESTful API using HTTP POST for token
+2. curl Congress RESTful API using the token above
+
+`alert.sh` sample:
+
+```shell
+#!/bin/bash
+
+username="admin"
+password="4MbCBXaqHJmARqpWzFNJFQF2T"
+congress_url="http://192.168.32.161:1789"
+keystone_url="http://192.168.32.161:5000/v2.0"
+# fetch token
+curl $keystone_url"/tokens" -X POST -H "Content-Type: application/json" -H "Accept: application/json"  -d '{"auth": {"tenantName": "admin", "passwordCredentials": {"username": "admin", "password": "4MbCBXaqHJmARqpWzFNJFQF2T"}}}' > result.json
+
+token0=$(jq .access.token.id result.json)
+
+token=${token0//\"/}
+
+rm result.json
+
+sendtime=`date`
+
+# send data
+curl -i -X PUT $congress_url/v1/data-sources/doctor/tables/events/rows -H "Content-Type: application/json" -d '[{"time":"2016-02-22T11:48:55Z","type":"compute.host.down","details":{"hostname":"overcloud-novacompute-0.opnfvlf.org","status":"down","monitor":"zabbix1","monitor_event_id":"111"}}]'  -H "X-Auth-Token: $token"
+```
+
+Then
+
+```shell
+chown zabbix.zabbix /usr/local/zabbix/share/zabbix/alertscripts/alertscript.sh
+chmod +x /usr/local/zabbix/share/zabbix/alertscripts/alertscript.sh
+```
+
+##### 2017 Add Media
+Configuration in zabbix web ui
+```
+Administration -> Add Media Types -> Select script type -> add alert.sh into AlertScriptsPath
+```
+
+### 21 Inspector
+
+We use openstack congress as our Inspector
+> See http://docs.opnfv.org/en/stable-danube/submodules/doctor/docs/release/configguide/feature.configuration.html#doctor-inspector for details.
+
+#### 210 Congress Doctor Driver
+```shell
+ssh heat-admin@192.0.2.x # ssh onto controller
+sudo -i
+vim /etc/congress/congress.conf
+# add doctor driver to Congress
+# configuration should be done on all controller node
+# then find the `drivers=...` entry
+# append `congress.datasources.doctor_driver.DoctorDriver` to it
+service openstack‐congress‐server restart
+```
+
+```shell
+source overcloudrc
+openstack congress datasource create doctor doctor
+```
+
+#### 211 Congress Policies 
+
+> See https://docs.openstack.org/congress/latest/user/policy.html for details about policy.
+
+Follow statements below and create policies needed.
+
+```shell
+openstack congress policy rule create \
+    ‐‐name host_down classification \
+    'host_down(host) :‐ doctor:events(hostname=host, type="compute.host.down", status="down")'
+```
+
+```shell
+openstack congress policy rule create \
+    ‐‐name active_instance_in_host classification \
+    'active_instance_in_host(vmid, host) :‐ nova:servers(id=vmid, host_name=host, status="ACTIVE")'
+```
+
+```shell
+openstack congress policy rule create \
+    ‐‐name host_force_down classification \
+    'execute[nova:services.force_down(host,  "nova‐compute", "True")] :‐ host_down(host)'
+```
+
+```shell
+openstack congress policy rule create \
+    ‐‐name error_vm_states classification \
+    'execute[nova:servers.reset_state(vmid, "error")] :‐ host_down(host), active_instance_in_host(vmid, host)'
+```
+
+### 22 Controller Configuration For Congress
+
+> See https://lingxiankong.github.io/2017-07-04.html for details.  
+> See https://docs.openstack.org/newton/config-reference/compute/config-options.html, https://docs.openstack.org/nova/14.0.7/notifications.html for details about Nova.  
+> See https://docs.openstack.org/newton/config-reference/telemetry/samples/event_definitions.yaml.html for details about Ceilometer.  
+> See https://docs.openstack.org/aodh/latest/contributor/event-alarm.html, https://docs.openstack.org/aodh/latest/admin/telemetry-alarms.html#event-based-alarm, https://github.com/openstack/aodh/blob/master/aodh/notifier/rest.py for details about Aodh.
+
+```shell
+ssh heat-admin@192.0.2.x # ssh onto controller
+sudo -i
+```
+
+#### 220 Nova
+
+```shell
+vim /etc/nova/nova.conf
+
+# ensure entries below
+notify_on_state_change=vm_and_task_state
+[oslo_messaging_notifications]
+driver=messagingv2
+topics=notifications
+```
+
+#### 221 Ceilometer
+
+```shell
+vim /etc/ceilometer/event_pipeline.yaml
+
+# add publishers "notifier://?topic=alarm.all"
+‐‐‐
+sources:
+    ‐ name: event_source
+        events:
+            ‐ "*"
+        sinks:
+            ‐ event_sink
+sinks:
+    ‐ name: event_sink
+        transformers:
+        publishers:
+            ‐ notifier://
+            ‐ notifier://?topic=alarm.all
+```
+
+```shell
+# restart ceilometer
+service openstack-ceilometer-notification restart
+service openstack-ceilometer-central restart
+```
+
+#### 222 Aodh
+
+```shell
+# configurations
+vim /etc/aodh/aodh.conf
+
+# by default the configurations are right; just ensure it
+[listener]
+event_alarm_topic = alarm.all
+```
+
+```shell
+# restart aodh
+service openstack-aodh-listener restart
+service openstack-aodh-notifier restart
+```
+
+```shell
+# create alarm rule
+aodh alarm create \
+    ‐‐name test_alarm \
+    ‐‐type event \
+    ‐‐alarm‐action "http://127.0.0.1:12346/failure" \
+    ‐‐repeat‐actions false \
+    ‐‐event‐type compute.instance.update \
+    ‐‐query "traits.state=string:error"
+```
+
+(If you use `consumer.py` in doctor tests it will listen at `12346` port. See http://docs.opnfv.org/en/stable-danube/submodules/doctor/docs/release/userguide/feature.userguide.html#immediate-notification for details.)
+
+```shell
+# to disable an alarm rule
+aodh alarm update ‐‐enabled False ALARM_ID
+# to delete an alarm rule
+aodh alarm delete ALARM_ID
+```
+
+### 23 Application Manager
+
+Application Manager send request to Nova to migrate VMs when something wrong inspected 
+
+#### 230 Source Code
+
+```python
+#!/usr/bin/env python
+```
+
+[Remain to be added]
+
+### 24 Tacker
+
+[Remain]
+
+
+## 3 Pre-configuration For Cloudify&Clearwater Deployment 
+
+Before running the script, you need to put all the images you need in `~/images`. You could upload these files from your Jumphost or you could download them on your stack VM. Currently we put four cloud image files in the folder:
 
 - CentOS-7-x86_64-GenericCloud.qcow2
 - precise-server-cloudimg-amd64-disk1.img
@@ -520,15 +532,16 @@ Before running the script, you need to put all the images you need in `~/images`
 - xenial-server-cloudimg-amd64-disk1.img
 
 ```shell
+# inport some environment variable
 source ./overcloudrc
 
-# add images
+# openstack create images
 for image in $( ls ./images ); do
         glance image-create --name $image --file images/$image \
             --disk-format qcow2 --container-format bare --progress
 done
 
-# add flavors
+# add flavor for oepnstack
 nova flavor-create --ephemeral 0 --is-public True m1.tiny 1 1024 10 1
 nova flavor-create --ephemeral 0 --is-public True m1.small 2 2048 20 1
 nova flavor-create --ephemeral 0 --is-public True m1.medium 3 4096 40 2
@@ -558,7 +571,7 @@ nova boot --flavor 2 --image $instance_img_id \
     --key-name newbie_test --security-groups default \
     --description "newbie_test" test_zhian
 
-# add floating ip
+# create floating ip for your VM
 openstack floating ip create --floating-ip-address 192.168.37.200 external
 nova floating-ip-associate test_zhian 192.168.37.200
 
@@ -680,34 +693,7 @@ Note that the specified version must be satisfied otherwise the process might no
 rake test[clearwater.opnfv] SIGNUP_CODE=secret ELLIS=192.168.32.208 PROXY=192.168.32.202 GEMINI=10.67.79.15 MEMENTO_SIP=10.67.79.15  MOMENTO_HTTP=10.67.79.15 ELLIS_API_KEY=secret
 ```
 
-## 5 Doctor Tests
-
-> See http://docs.opnfv.org/en/stable-danube/submodules/doctor/docs/development/overview/testing.html, https://wiki.opnfv.org/display/functest/ for details.
-
-```shell
-# on real server
-
-## test script
-git clone https://gerrit.opnfv.org/gerrit/doctor
-cd doctor/tests
-export INSTALLER_TYPE=apex
-export INSPECTOR_TYPE=sample
-./run.sh
-
-## functest
-DOCKER_TAG=latest
-docker pull opnfv/functest:${DOCKER_TAG}
-docker run --privileged=true -id \
-    -e INSTALLER_TYPE=${INSTALLER_TYPE} \
-    -e INSTALLER_IP=${INSTALLER_IP} \
-    -e INSPECTOR_TYPE=sample \
-    opnfv/functest:${DOCKER_TAG} /bin/bash
-docker exec <container_id> python /home/opnfv/repos/functest/functest/ci/prepare_env.py start
-docker exec <container_id> functest testcase run doctor
-```
-
-## 6 Dial Test
-
+## 5 Make Your First Call 
 > See http://clearwater.readthedocs.io/en/stable/Making_your_first_call.html#making-calls-through-clearwater for details.
 
 Our communication system is 
@@ -744,6 +730,31 @@ Issues:
 - Connection lost after 15 seconds due to 'No ack received'
 - Both X-lite and Blink could not register successfully via TCP on one of our windows virtual machine, strangely on another windows virtual machine registering via tcp works properly
 
+## 6 Doctor Tests
+
+> See http://docs.opnfv.org/en/stable-danube/submodules/doctor/docs/development/overview/testing.html, https://wiki.opnfv.org/display/functest/ for details.
+
+```shell
+# on real server
+
+## test script
+git clone https://gerrit.opnfv.org/gerrit/doctor
+cd doctor/tests
+export INSTALLER_TYPE=apex
+export INSPECTOR_TYPE=sample
+./run.sh
+
+## functest
+DOCKER_TAG=latest
+docker pull opnfv/functest:${DOCKER_TAG}
+docker run --privileged=true -id \
+    -e INSTALLER_TYPE=${INSTALLER_TYPE} \
+    -e INSTALLER_IP=${INSTALLER_IP} \
+    -e INSPECTOR_TYPE=sample \
+    opnfv/functest:${DOCKER_TAG} /bin/bash
+docker exec <container_id> python /home/opnfv/repos/functest/functest/ci/prepare_env.py start
+docker exec <container_id> functest testcase run doctor
+```
 ## 7 Summary
 
 To be or not to be, that is a question :)
