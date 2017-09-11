@@ -35,3 +35,5 @@ sudo chmod 777 /var/lib/nova/instances
 
 sudo systemctl restart rpcidmapd.service
 sudo systemctl restart nfs-server.service
+# firewall should be stoped because nfs use some uncertain ports
+sudo systemctl stop iptables
