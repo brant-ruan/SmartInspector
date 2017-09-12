@@ -31,7 +31,7 @@ def get_instance_id(reason_data):
 
 app = Flask(__name__)
 
-@app.route("/", methods=['POST'])
+@app.route("/failure", methods=['POST'])
 def transfer():
     #get request data from Aodh HTTP POST Request
     aodh_alarm_data = request.json
@@ -59,6 +59,7 @@ def transfer():
 
 
 
+
     #evacuate vm instances
     #server_id = ''
     #nova_headers = {'X-Auth-Token':token,'Content-Type':'application/json'}
@@ -74,6 +75,14 @@ def transfer():
     payload = {'os-migrateLive':os_migrateLive}
     header = {'X-Auth-Token':token,'Content-Type':'application/json'}
     requests.post(nova_action_url,data = json.dumps(payload),headers = header)
+
+    return "success"
+
+
+@app.route("/")
+def hello():
+    return "hello"
+
 
 
 

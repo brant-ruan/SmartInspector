@@ -37,6 +37,7 @@ def alert(config):
     payload.append(item)
     header = {'X-Auth-Token':token,'Content-Type':'application/json'}
     requests.put(config["CongressURL"]+"/v1/data-sources/doctor/tables/events/rows",data = json.dumps(payload),headers=header)
+    print json.dumps(payload)
 
 
 
