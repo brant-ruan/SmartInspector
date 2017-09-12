@@ -1,0 +1,12 @@
+[OpenStack]
+OS_username = "admin"
+OS_password = "27tY2znvtwqjYPgZEC7TGDhd9"
+KeyStoneURL = "http://192.0.2.7:35357/v2.0"
+CongressURL = "http://192.0.2.7:1789"
+
+
+[ComputeNode]
+HostId = "56130a43-6eed-4acf-8de4-769b564192f4"
+HostName = "overcloud-novacompute-0"
+IP = "192.0.2.5"
+MonitoredNIC = "eth2"
