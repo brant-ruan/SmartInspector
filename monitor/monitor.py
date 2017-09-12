@@ -53,25 +53,20 @@ def get_token(config):
 
 #
 def run():
-    logging.basicConfig(filename="monitor.log",level=logging.WARNING,format='%(asctime)s  %(message)s')
-    #logger = logging.getLogger()
-    #handler = logging.StreamHandler()
-    #formatter = logging.Formatter()
-    #handler.setFormatter(formatter)
-    #logger.addHandler(handler)
-    #logger.setLevel(logging.WARNING)
-
+    logging.basicConfig(filename="monitor.log",level=logging.INFO,format='%(asctime)s  %(message)s')
     config = read_config()
     fault = False
     while True:
         result = os.popen("ethtool "+config["MonitoredNIC"]).readlines()[1]
-        if result.find("Link detected: no") and (not fault):
+        if (result.find("Link detected: no") > 0) and (not fault):
             alert(config)
             fault = True 
             logging.critical(config["MonitoredNIC"]+" down ")
+            #print "eth2 down"
 
-        elif (not result.find("Link detected: no")) and (fault):
+        elif (result.find("Link detected: no") < 0) and (fault):
             fault = False
+            logging.info(config["MonitoredNIC"]+" up")
 
         
 
