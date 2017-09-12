@@ -53,6 +53,14 @@ def get_token(config):
 
 #
 def run():
+    logging.basicConfig(filename="monitor.log",level=logging.WARNING,format='%(asctime)s  %(message)s')
+    #logger = logging.getLogger()
+    #handler = logging.StreamHandler()
+    #formatter = logging.Formatter()
+    #handler.setFormatter(formatter)
+    #logger.addHandler(handler)
+    #logger.setLevel(logging.WARNING)
+
     config = read_config()
     fault = False
     while True:
@@ -60,9 +68,12 @@ def run():
         if result.find("Link detected: no") and (not fault):
             alert(config)
             fault = True 
+            logging.critical(config["MonitoredNIC"]+" down ")
 
         elif (not result.find("Link detected: no")) and (fault):
             fault = False
+
+        
 
 
 
