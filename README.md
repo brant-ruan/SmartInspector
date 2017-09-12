@@ -395,26 +395,25 @@ Follow statements below and create policies needed.
 
 ```shell
 openstack congress policy rule create \
-    ‐‐name host_down classification \
-    'host_down(host) :‐ doctor:events(hostname=host, type="compute.host.down", status="down")'
-```
+    --name host_down classification \
+    'host_down(host) :-
+        doctor:events(hostname=host, type="compute.host.down", status="down")'
 
-```shell
 openstack congress policy rule create \
-    ‐‐name active_instance_in_host classification \
-    'active_instance_in_host(vmid, host) :‐ nova:servers(id=vmid, host_name=host, status="ACTIVE")'
-```
+    --name active_instance_in_host classification \
+    'active_instance_in_host(vmid, host) :-
+        nova:servers(id=vmid, host_name=host, status="ACTIVE")'
 
-```shell
 openstack congress policy rule create \
-    ‐‐name host_force_down classification \
-    'execute[nova:services.force_down(host,  "nova‐compute", "True")] :‐ host_down(host)'
-```
+    --name host_force_down classification \
+    'execute[nova:services.force_down(host, "nova-compute", "True")] :-
+        host_down(host)'
 
-```shell
 openstack congress policy rule create \
-    ‐‐name error_vm_states classification \
-    'execute[nova:servers.reset_state(vmid, "error")] :‐ host_down(host), active_instance_in_host(vmid, host)'
+    --name error_vm_states classification \
+    'execute[nova:servers.reset_state(vmid, "error")] :-
+        host_down(host),
+        active_instance_in_host(vmid, host)'
 ```
 
 ### 22 Controller Configuration For Congress
@@ -493,7 +492,7 @@ aodh alarm create \
     ‐‐alarm‐action "http://127.0.0.1:12346/failure" \
     ‐‐repeat‐actions false \
     ‐‐event‐type compute.instance.update \
-    ‐‐query "traits.state=string:error"
+    ‐‐query "traits.state=string::error"
 ```
 
 (If you use `consumer.py` in doctor tests it will listen at `12346` port. See http://docs.opnfv.org/en/stable-danube/submodules/doctor/docs/release/userguide/feature.userguide.html#immediate-notification for details.)
