@@ -8,8 +8,10 @@ source ./overcloudrc
 
 # variables (default values given here)
 your_network_name=test_zhian
+your_subnet_name=test_hou_sub
 your_VM_ip=192.168.32.200
 your_network_address=192.168.22.0/24
+your_router_name=router_test_hou
 your_ssh_key_name=newbie
 new_instance_image=trusty
 
@@ -32,11 +34,11 @@ chmod 700 ./$your_ssh_key_name.pem
 
 # create network
 neutron net-create $your_network_name
-neutron subnet-create $your_network_name $your_network_address --name test_hou_sub --dns-nameserver 8.8.8.8
+neutron subnet-create $your_network_name $your_network_address --name $your_subnet_name --dns-nameserver 8.8.8.8
 
 # add router
-neutron router-create router_test_hou
-router_id=$(openstack router list | grep router_test_hou | cut -d'|' -f 2)
+neutron router-create $your_router_name
+router_id=$(openstack router list | grep $your_router_name | cut -d'|' -f 2)
 external_network_id=$(openstack network list | grep external | cut -d'|' -f 2)
 hou_subnet_id=$(openstack network list | grep $your_network_name | cut -d'|' -f 4)
 neutron router-gateway-set $router_id $external_network_id
@@ -76,6 +78,6 @@ chmod +x ./$your_ssh_key_name.sh
 openstack quota set admin --instances 30
 ## increase limit of the number of CPU
 openstack quota set admin --cores 30
-# wait virtual machine to start normally
+# wait virtual machine to start normally, time spent to boot a VM may depend your environment, 20s may be too short if you can't afford a good machine
 sleep 20
 scp -i ./$your_ssh_key_name.pem overcloudrc ubuntu@$your_VM_ip:~/
