@@ -1,14 +1,16 @@
 #!/bin/bash
 
-# on undercloud
+# pre-configuration for cloudify&clearwater deployment
 # to do some pre-config for overcloud
 
 cd ~
 source ./overcloudrc
 
-# variables (default values given)
-test_zhian_ip=192.168.32.200
-test_hou_net=192.168.22.0/24
+# variables (default values given here)
+your_network_name=test_zhian
+your_VM_ip=192.168.32.200
+your_network_address=192.168.22.0/24
+your_ssh_key_name=newbie
 new_instance_image=trusty
 
 # add images
@@ -24,33 +26,33 @@ nova flavor-create --ephemeral 0 --is-public True m1.medium 3 4096 40 2
 nova flavor-create --ephemeral 0 --is-public True m1.large 4 8192 80 4
 
 # add key pair
-nova keypair-add newbie_test > newbie_test.pem
+nova keypair-add $your_ssh_key_name > $your_ssh_key_name.pem
 ## change the attribute or `ssh` will fail
-chmod 700 ./newbie_test.pem
+chmod 700 ./$your_ssh_key_name.pem
 
 # create network
-neutron net-create test_hou
-neutron subnet-create test_hou $test_hou_net --name test_hou_sub --dns-nameserver 8.8.8.8
+neutron net-create $your_network_name
+neutron subnet-create $your_network_name $your_network_address --name test_hou_sub --dns-nameserver 8.8.8.8
 
 # add router
 neutron router-create router_test_hou
 router_id=$(openstack router list | grep router_test_hou | cut -d'|' -f 2)
 external_network_id=$(openstack network list | grep external | cut -d'|' -f 2)
-hou_subnet_id=$(openstack network list | grep test_hou | cut -d'|' -f 4)
+hou_subnet_id=$(openstack network list | grep $your_network_name | cut -d'|' -f 4)
 neutron router-gateway-set $router_id $external_network_id
 neutron router-interface-add $router_id $hou_subnet_id
-neutron port-create test_hou
+neutron port-create $your_network_name
 
 # create instance of Ubuntu 14.04
 flavor_id=$(openstack flavor list | grep "small" | cut -d'|' -f 2)
 instance_img_id=$(openstack image list | grep $new_instance_image | cut -d'|' -f 2)
 nova boot --flavor $flavor_id --image $instance_img_id \
-    --key-name newbie_test --security-groups default \
-    --description "newbie_test" test_zhian
+    --key-name $your_ssh_key_name --security-groups default \
+    --description "$your_ssh_key_name" test_zhian
 
 # add floating ip
-openstack floating ip create --floating-ip-address $test_zhian_ip external
-nova floating-ip-associate test_zhian $test_zhian_ip
+openstack floating ip create --floating-ip-address $your_VM_ip external
+nova floating-ip-associate test_zhian $your_VM_ip
 
 # modify security group
 sec_grp_prj=$(openstack project list | grep admin | cut -d'|' -f 2)
@@ -63,16 +65,17 @@ openstack security group rule create --protocol icmp $sec_grp_id
 nova secgroup-add-rule $sec_grp_id tcp 1 65535 0.0.0.0/0
 
 # create ssh login file
-ssh-keygen -R $test_zhian_ip
-echo  '#!/bin/bash' > newbie.sh
-echo -e "\n" >> newbie.sh
-echo "ssh -i ./newbie_test.pem ubuntu@192.168.32.200" >> newbie.sh
-chmod +x ./newbie.sh
-# change the quota
+ssh-keygen -R $your_VM_ip
+echo  '#!/bin/bash' > $your_ssh_key_name.sh
+echo -e "\n" >> $your_ssh_key_name.sh
+echo "ssh -i ./$your_ssh_key_name.pem ubuntu@192.168.32.200" >> $your_ssh_key_name.sh
+chmod +x ./$your_ssh_key_name.sh
+
+# change  default openstack quota
 ## increase limit of the number of instances
 openstack quota set admin --instances 30
 ## increase limit of the number of CPU
 openstack quota set admin --cores 30
 # wait virtual machine to start normally
 sleep 20
-scp -i ./newbie_test.pem overcloudrc ubuntu@192.168.32.200:~/
+scp -i ./$your_ssh_key_name.pem overcloudrc ubuntu@$your_VM_ip:~/
