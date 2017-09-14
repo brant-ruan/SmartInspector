@@ -1,0 +1,1 @@
+# Zabbix monitor NIC status
