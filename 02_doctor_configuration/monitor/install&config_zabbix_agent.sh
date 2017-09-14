@@ -1,8 +1,9 @@
 #!/bin/bash
 
-# author:zangyuan
 # this script is used to install and config zabbix-agent on compute node
 # sudo needed, params need to be passed to bash as command line arguments
+# ! install zabbix-server firstly since it's ip will be used as paramter
+
 # $1 zabbix-server ip 
 # $2 PSK sequence number  such as : 001、002、003
 
@@ -19,7 +20,3 @@ sudo sed -i "s/# TLSPSKFile=/TLSPSKFile=\/etc\/zabbix\/zabbix_agentd.psk/g" /etc
 sudo systemctl start zabbix-agent 
 sudo systemctl enable zabbix-agent
 sudo iptables -I INPUT -p tcp --dport 10050 -j ACCEPT
-
-
-
-

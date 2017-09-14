@@ -211,42 +211,11 @@ nova evacuate
 
 ### 20 Monitor
 We use Zabbix as our monitor 
-#### 200 Zabbix Agent Configuration
-
-On each compute node:
-
-```shell
-# install
-sudo rpm -ivh http://repo.zabbix.com/zabbix/3.0/rhel/7/x86_64/zabbix-release-3.0-1.el7.noarch.rpm
-sudo yum install zabbix-agent
-
-# PSK encryption
-sudo sh -c "openssl rand -hex 32 > /etc/zabbix/zabbix_agentd.psk"
-## content of this file may be needed in zabbix web ui configuration
-cat /etc/zabbix/zabbix_agentd.psk
-
-sudo vi /etc/zabbix/zabbix_agentd.conf
-## configure zabbix server
-Server= your zabbix server ip
-## configure connection between server and agent
-TLSConnect=psk
-TLSAccept=psk
-TLSPSKIdentity=PSK 001
-## when you add host in zabbix web agent, you should use this PSK ID
-TLSPSKFile=/etc/zabbix/zabbix_agentd.psk
-
-# start agent
-sudo systemctl start zabbix-agent
-sudo systemctl enable zabbix-agent
-## check status
-sudo systemctl status zabbix-agent
-```
-
-#### 201 Zabbix Server Configuration
+#### 200 Zabbix Server Configuration
 
 On one controller node (One is enough):
 
-##### 2010 install Zabbix Server
+##### 2000 install Zabbix Server
 
 ```shell
 # install
@@ -255,7 +224,7 @@ sudo yum install zabbix-server-mysql zabbix-web-mysql
 sudo yum install zabbix-agent # to monitor itself
 ```
 
-##### 2011 Config Database for Zabbix Server 
+##### 2001 Config Database for Zabbix Server 
 Firstly make sure you MySQL service is running
 ```shell
 sudo systemctl enable mariadb
@@ -278,7 +247,7 @@ sudo vi /etc/zabbix/zabbix_server.conf
 DBPassword=...
 ```
 
-##### 2012 Httpd 
+##### 2002 Httpd 
 
 ```shell
 sudo vi /etc/httpd/conf.d/zabbix.conf
@@ -291,11 +260,11 @@ sudo systemctl status zabbix-server
 sudo systemctl enable zabbix-server
 ```
 
-##### 2013 Zabbix Web UI
+##### 2003 Zabbix Web UI
 
 Forwarding controller ip where your Zabbix server is installed may be necessary to access zabbix web ui on your local browser because controller ip is not on the same network with your Jumphost
 
-##### 2014 Zabbix Add Host To Be Monitored
+##### 2004 Zabbix Add Host To Be Monitored
 
 In Web UI:
 
@@ -308,13 +277,13 @@ Templates -> Template OS Linux -> Encryption -> PSK
     -> Configure PSK value (from /etc/zabbix/zabbix_agentd.psk in zabbix agent)
 ```
 
-##### 2015 Add Item/Trigger/Action
+##### 2005 Add Item/Trigger/Action
 
 ```
 Configure Item -> Trigger -> Action
 ```
 
-##### 2016 Alert Script
+##### 2006 Alert Script
 
 > See https://github.com/openstack/congress/blob/master/congress/datasources/doctor_driver.py for details about doctor driver.  
 > See https://www.zabbix.com/documentation/3.2/manual/config/notifications/media/script for Zabbix details about alert script.  
@@ -359,11 +328,42 @@ chown zabbix.zabbix /usr/local/zabbix/share/zabbix/alertscripts/alertscript.sh
 chmod +x /usr/local/zabbix/share/zabbix/alertscripts/alertscript.sh
 ```
 
-##### 2017 Add Media
+##### 2007 Add Media
 Configuration in zabbix web ui
 ```
 Administration -> Add Media Types -> Select script type -> add alert.sh into AlertScriptsPath
 ```
+#### 201 Zabbix Agent Configuration
+
+On each compute node:
+
+```shell
+# install
+sudo rpm -ivh http://repo.zabbix.com/zabbix/3.0/rhel/7/x86_64/zabbix-release-3.0-1.el7.noarch.rpm
+sudo yum install zabbix-agent
+
+# PSK encryption
+sudo sh -c "openssl rand -hex 32 > /etc/zabbix/zabbix_agentd.psk"
+## content of this file may be needed in zabbix web ui configuration
+cat /etc/zabbix/zabbix_agentd.psk
+
+sudo vi /etc/zabbix/zabbix_agentd.conf
+## configure zabbix server
+Server= your zabbix server ip
+## configure connection between server and agent
+TLSConnect=psk
+TLSAccept=psk
+TLSPSKIdentity=PSK 001
+## when you add host in zabbix web agent, you should use this PSK ID
+TLSPSKFile=/etc/zabbix/zabbix_agentd.psk
+
+# start agent
+sudo systemctl start zabbix-agent
+sudo systemctl enable zabbix-agent
+## check status
+sudo systemctl status zabbix-agent
+```
+
 
 ### 21 Inspector
 
