@@ -241,7 +241,7 @@ flush privileges;
 
 # import schema
 cd /usr/share/doc/zabbix-server-mysql-3.0.4/
-zcat create.sql.gz | mysql -uzabbix-p zabbix
+zcat create.sql.gz | mysql -uzabbix -pzabbix
 sudo vi /etc/zabbix/zabbix_server.conf
 # configure the password of database
 DBPassword=...
