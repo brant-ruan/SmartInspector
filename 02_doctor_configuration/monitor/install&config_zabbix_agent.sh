@@ -5,10 +5,10 @@
 # ! install zabbix-server firstly since it's ip will be used as paramter
 
 # $1 zabbix-server ip 
-# $2 PSK sequence number  such as : 001、002、003
+# $2 PSK sequence number  such as : 001、002、003 (used to distinguish different agent)
 
 sudo rpm -ivh http://repo.zabbix.com/zabbix/3.0/rhel/7/x86_64/zabbix-release-3.0-1.el7.noarch.rpm
-sudo yum install zabbix-agent
+sudo yum install zabbix-agent -y
 
 sudo sh -c "openssl rand -hex 32 > /etc/zabbix/zabbix_agentd.psk"
 sudo sed -i "s/Server=127.0.0.1/Server=$1/g" /etc/zabbix/zabbix_agentd.conf
