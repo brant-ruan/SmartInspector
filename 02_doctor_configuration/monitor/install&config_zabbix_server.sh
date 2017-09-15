@@ -17,6 +17,7 @@ flush privileges;
 cd /usr/share/doc/zabbix-server-mysql-3.0.10/
 zcat create.sql.gz | mysql -uzabbix -p zabbix
 # type your zabbix password "zabbix" when promoted
+# this is very stange, I think here is supposed to use 'mysql -uzabbix -pzabbix' in order to avoid promoting for password, but stange error occurs 'No database selected'
 sudo sed -i "s/# DBPassword=/DBPassword=zabbix/g" /etc/zabbix/zabbix_server.conf
 sudo sed -i "s/# php_value date.timezone Europe\/Riga/php_value date.timezone Asia\/Shanghai/g" /etc/httpd/conf.d/zabbix.conf
 
