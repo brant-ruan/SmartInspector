@@ -419,7 +419,7 @@ openstack congress policy rule create \
 
 ### 22 Controller Configuration For Congress
 
-> See https://docs.openstack.org/newton/config-reference/compute/config-options.html, https://docs.openstack.org/nova/14.0.7/notifications.html for details about Nova.  
+> See https://docs.openstack.org/newton/config-reference/compute/config-options.html, https://docs.openstack.org/nova/14.0.7/notifications.html for details about Nova notify_on_state_change conguration.  
 > See https://docs.openstack.org/newton/config-reference/telemetry/samples/event_definitions.yaml.html for details about Ceilometer.  
 > See https://docs.openstack.org/aodh/latest/contributor/event-alarm.html, https://docs.openstack.org/aodh/latest/admin/telemetry-alarms.html#event-based-alarm, https://github.com/openstack/aodh/blob/master/aodh/notifier/rest.py for details about Aodh.
 
