@@ -24,7 +24,7 @@ opnfv-deploy -v --virtual-cpus 8 \
 
 ### 01 NAT (discard)
 
-If you openstack external network is not on the same network with your Jumphost (your read HW server),in order to make Internet accessible to VMs on Overcloud, NAT is necessary to forward you oepnstack external network
+If you openstack external network is not on the same network with your Jumphost (your real HW server),in order to make your external network have Internet access, NAT is necessary to forward your oepnstack external network out
 
 ```shell
 # on HW server
@@ -38,13 +38,14 @@ iptables -A FORWARD -m state --state ESTABLISHED,RELATED -j ACCEPT
 
 ### 02 Dashboard (discard)
 
-To visit dashboard from your browser.
+To visit dashboard behind NAT from your local browser.
 
 ```shell
 # on HW server
 screen -S opnfv_dashboard
 # your can find proper ip address in your overcloudrc file
 socat tcp-l:10001,reuseaddr,fork tcp:192.168.37.18:80
+# press ctrl-a d to detatch from current screen
 ## the firewalld may block some connections
 service firewalld stop
 ```

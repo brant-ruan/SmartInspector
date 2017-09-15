@@ -15,8 +15,8 @@ grant all privileges on zabbix.* to zabbix@localhost identified by 'zabbix';
 flush privileges;
 "
 cd /usr/share/doc/zabbix-server-mysql-3.0.10/
-zcat create.sql.gz | mysql -uzabbix -pzabbix
-# if any error occurs,zcat create.sql.gz | mysql -uzabbix -p then type your zabbix password "zabbix" when promoted
+zcat create.sql.gz | mysql -uzabbix -p zabbix
+# type your zabbix password "zabbix" when promoted
 sudo sed -i "s/# DBPassword=/DBPassword=zabbix/g" /etc/zabbix/zabbix_server.conf
 sudo sed -i "s/# php_value date.timezone Europe\/Riga/php_value date.timezone Asia\/Shanghai/g" /etc/httpd/conf.d/zabbix.conf
 
