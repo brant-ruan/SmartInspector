@@ -371,9 +371,9 @@ sudo systemctl status zabbix-agent
 We use openstack congress as our Inspector
 > See http://docs.opnfv.org/en/stable-danube/submodules/doctor/docs/release/configguide/feature.configuration.html#doctor-inspector for details.
 
-#### 210 Congress Doctor Driver
+#### 210 Enable Doctor Datasource Driver
 ```shell
-ssh heat-admin@192.0.2.x # ssh onto controller
+ssh heat-admin@192.0.2.x # log to all of your controller via ssh
 sudo -i
 vim /etc/congress/congress.conf
 # add doctor driver to Congress
@@ -388,7 +388,7 @@ source overcloudrc
 openstack congress datasource create doctor doctor
 ```
 
-#### 211 Congress Policies 
+#### 211 Set Congress Policy Rule
 
 > See https://docs.openstack.org/congress/latest/user/policy.html for details about policy.
 
@@ -419,7 +419,6 @@ openstack congress policy rule create \
 
 ### 22 Controller Configuration For Congress
 
-> See https://lingxiankong.github.io/2017-07-04.html for details.  
 > See https://docs.openstack.org/newton/config-reference/compute/config-options.html, https://docs.openstack.org/nova/14.0.7/notifications.html for details about Nova.  
 > See https://docs.openstack.org/newton/config-reference/telemetry/samples/event_definitions.yaml.html for details about Ceilometer.  
 > See https://docs.openstack.org/aodh/latest/contributor/event-alarm.html, https://docs.openstack.org/aodh/latest/admin/telemetry-alarms.html#event-based-alarm, https://github.com/openstack/aodh/blob/master/aodh/notifier/rest.py for details about Aodh.
