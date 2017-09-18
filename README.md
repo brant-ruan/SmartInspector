@@ -491,6 +491,10 @@ aodh alarm create \
     ‐‐event‐type compute.instance.update \
     ‐‐query "traits.state=string::error"
 ```
+If any syntax error occurs, use the following command
+```shell
+aodh alarm create --name test_alarm --type event --alarm-action "http://127.0.0.1:12346/" --repeat-actions false --event-type compute.instance.update --query "traits.state=string::error"
+```
 
 (If you use `consumer.py` in doctor tests it will listen at `12346` port. See http://docs.opnfv.org/en/stable-danube/submodules/doctor/docs/release/userguide/feature.userguide.html#immediate-notification for details.)
 
