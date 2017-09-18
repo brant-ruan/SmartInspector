@@ -21,8 +21,11 @@ ansible controller  -m ping
 ```
 Ansible script module 
 
-Execute bash scripts in a group of remote hosts
+Execute bash scripts on a group of remote hosts
 ```shell
 ansible controller -m script -a "path-to-your-local-script" (--sudo) 
 ```
-
+Execute shell commands on remote hosts
+```shell
+ansible controller -m shell -a "sudo systemctl restart openstack-aodh-notifier"
+```
