@@ -184,17 +184,14 @@ iptables -A INPUT -p tcp -m multiport --ports 16509 \
 ### 15 UID/GID
 
 Check UID/GID on the controller.
-
+You can see the numberic value of UID and GID
 ```shell
 id nova
-uid gid
 ```
-
 Then sync it on each compute node.
-
 ```shell
-usermod -u uid nova
-groupmod -g gid nova
+usermod -u NUMBERICAL_UID 
+groupmod -g NUMBERICAL_GID 
 ```
 
 ### 16 Evacuation&Migration
@@ -382,17 +379,17 @@ vim /etc/congress/congress.conf
 # append `congress.datasources.doctor_driver.DoctorDriver` to it
 service openstack‐congress‐server restart
 ```
+#### 211 Set Congress Policy Rule
 
+> See https://docs.openstack.org/congress/latest/user/policy.html for details about policy.
+
+> See http://docs.opnfv.org/en/stable-danube/submodules/doctor/docs/release/configguide/feature.configuration.html
 ```shell
 source overcloudrc
 openstack congress datasource create doctor doctor
 ```
 
-#### 211 Set Congress Policy Rule
-
-> See https://docs.openstack.org/congress/latest/user/policy.html for details about policy.
-
-Follow statements below and create policies needed.
+Create policies needed
 
 ```shell
 openstack congress policy rule create \
@@ -425,7 +422,7 @@ openstack congress policy rule create \
 
 ```shell
 ssh heat-admin@192.0.2.x # ssh onto controller
-sudo -i
+sudo -i # root necessary for operations later
 ```
 
 #### 220 Nova
