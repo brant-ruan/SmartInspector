@@ -1,6 +1,7 @@
 # OpenStack instruction
+## Nova
 
-## Boot VM on specific compute node
+### Boot VM on specific compute node
 Firstly, list all of your avaliable zone
 ```shell
 nova hypervisor-list
@@ -9,6 +10,17 @@ Boot VM
 ```shell
 nova boot --flavor 4 --image 7ebd2a4b-437f-4017-83b5-0f054149a540 --key-name newbie_test --availability-zone nova:overcloud-novacompute-2.opnfvlf.org your_VM_name
 ```
+### Reset compute node state 
+```shell
+nova service-force-down --unset overcloud-novacompute-0.opnfvlf.org nova-compute
+```
+This will set compute node state from down to up
+### Reset VM state
+```shell
+nova reset-state --active a7614957-0674-4898-833f-0251059f5f3b
+```
+This will set VM state from error to active
+
 ## Neutron
 Show detailed information of external-net subnet
 ```shell
@@ -22,7 +34,9 @@ neutron subnet-delete external-net
 ```shell
 neutron subnet-create external 192.168.32.0/24  --name  external-net --dns-nameserver 8.8.8.8 --gateway 192.168.32.1 --allocation-pool start=192.168.32.191,end=192.168.32.250  
 ```
+
 ## Aodh
+
 ### Alarm type
 - Threshold based alarm
 - Composite alarm
@@ -115,7 +129,6 @@ These are a lightweight alternative to webhooks, whereby the state transition is
 ```
 
 ## Nova
-
 
 
 ## Congress
