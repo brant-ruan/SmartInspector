@@ -1,5 +1,14 @@
 # OpenStack instruction
 
+## Boot VM on specific compute node
+Firstly, list all of your avaliable zone
+```shell
+nova hypervisor-list
+```
+Boot VM
+```shell
+nova boot --flavor 4 --image 7ebd2a4b-437f-4017-83b5-0f054149a540 --key-name newbie_test --availability-zone nova:overcloud-novacompute-2.opnfvlf.org your_VM_name
+```
 ## Neutron
 Show detailed information of external-net subnet
 ```shell
