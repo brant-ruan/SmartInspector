@@ -17,6 +17,10 @@ Restart compute nodes
 ansible compute -m shell -a "service openstack-nova-compute restart" --sudo 
 ```
 
+### Unpause VM
+```shell
+nova unpause server_name_or_id
+```
 ### Boot VM on specific compute node
 Firstly, list all of your avaliable zone
 ```shell
@@ -78,6 +82,17 @@ aodh alarm create --name test_alarm --type event --alarm-action "http://127.0.0.
 ### Set alarm state
 ```shell
         openstack alarm state set --state ok ALARM_ID
+```
+
+## Ceilometer
+
+## Alarm list
+```shell
+ceilometer alarm-list
+```
+## Alarm delete
+```shell
+ceilometer alarm-delete  5cb446ae-20a9-4010-bda0-3d403ccf6200
 ```
 
 ## Congress
