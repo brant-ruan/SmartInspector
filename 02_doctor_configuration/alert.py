@@ -6,7 +6,7 @@ import requests
 import socket
 import sys
 import time
-
+from keystoneauth1 import session
 from congressclient.v1 import client
 import identity_auth
 

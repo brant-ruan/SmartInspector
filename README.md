@@ -413,7 +413,15 @@ openstack congress policy rule create \
         host_down(host),
         active_instance_in_host(vmid, host)'
 ```
-
+Change VM status to pause instead of error for live-migration policy
+```shell
+openstack congress policy rule create \
+    --name pause_vm_states classification \
+    'execute[nova:servers.pause(vmid)] :-
+        host_down(host),
+        active_instance_in_host(vmid, host)'
+```
+You should also change alarm rule query sentence
 ### 22 Controller Configuration For Congress
 
 > See https://docs.openstack.org/newton/config-reference/compute/config-options.html, https://docs.openstack.org/nova/14.0.7/notifications.html for details about Nova notify_on_state_change conguration.  
