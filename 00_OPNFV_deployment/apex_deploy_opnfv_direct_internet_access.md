@@ -26,11 +26,11 @@ ansible compute -m ping
 You should see all green output, you had better disable ansible SSH key host checking for better experience
 
 Firstly make sure your controller and compute nodes ip configuration is correct
-### On controller nodes
+### Controller nodes configuration (in your stack machine/ansible host machine)
 ```shell
 ansible-playbook opnfv_direct_internet_access_network_configuration_controller.yml
 ```
-### On compute nodes
+### Compute nodes configuration (in your stack machine/ansible host machine)
 Make sure the ip which is on the same network with your Jumphost network dev is eth2 before execute this command
 ```shell
 ansible_playbook opnfv_direct_internet_access_network_configuration_compute.yml
