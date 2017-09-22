@@ -64,6 +64,7 @@ Firstly 'route -n' to find out interface associated with 192.168.32.x ip address
 ## Last step
 You may need to delete the subnet of default external network and creat a new one because it's network mask generated during Apex installing process is /25,netmask should be /24 during our installation process. You can do it manauly via OpenStack dashboard or by OpenStack commands
 ```shell
+source ~/overcloudrc
 # delete external default subnet
 neutron subnet-delete external-net 
 # recreate external subnet
