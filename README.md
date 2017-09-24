@@ -482,7 +482,7 @@ service openstack-ceilometer-notification restart
 service openstack-ceilometer-central restart
 ```
 
-#### 222 Aodh
+#### 222 Aodh(Create Alarm)
 
 ```shell
 # configurations
@@ -532,8 +532,6 @@ Application Manager send request to Nova to migrate VMs when something wrong ins
 
 ```python
 #!/usr/bin/env python
-#!/usr/bin/env python
-
 # modify app route if necessary
 import argparse
 from flask import Flask
