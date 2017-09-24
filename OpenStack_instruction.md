@@ -86,13 +86,20 @@ aodh alarm create --name test_alarm --type event --alarm-action "http://127.0.0.
 
 ## Ceilometer
 
-## Alarm list
+### Alarm list
 ```shell
 ceilometer alarm-list
 ```
-## Alarm delete
+### Alarm delete
 ```shell
 ceilometer alarm-delete  5cb446ae-20a9-4010-bda0-3d403ccf6200
+```
+### Restart ceilometer
+```shell
+service  openstack-ceilometer-api  restart    
+service openstack-ceilometer-notification restart
+service openstack-ceilometer-central  restart
+service openstack-ceilometer-collector  restart
 ```
 
 ## Congress
