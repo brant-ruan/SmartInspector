@@ -368,7 +368,7 @@ sudo systemctl status zabbix-agent
 We use openstack congress as our Inspector
 > See http://docs.opnfv.org/en/stable-danube/submodules/doctor/docs/release/configguide/feature.configuration.html#doctor-inspector for details.
 
-#### 210 Enable Doctor Datasource Driver
+#### 210 Add Congress Datasource Driver
 ```shell
 ssh heat-admin@192.0.2.x # log to all of your controller via ssh
 sudo -i
@@ -379,11 +379,11 @@ vim /etc/congress/congress.conf
 # append `congress.datasources.doctor_driver.DoctorDriver` to it
 service openstack‐congress‐server restart
 ```
-#### 211 Set Congress Policy Rule
+#### 211 Create Congress Policy Rule
 
 > See https://docs.openstack.org/congress/latest/user/policy.html for details about policy.
 
-> See http://docs.opnfv.org/en/stable-danube/submodules/doctor/docs/release/configguide/feature.configuration.html
+> See http://docs.opnfv.org/en/stable-danube/submodules/doctor/docs/release/configguide/feature.configuration.html for details
 ```shell
 source overcloudrc
 openstack congress datasource create doctor doctor
@@ -422,21 +422,22 @@ openstack congress policy rule create \
         active_instance_in_host(vmid, host)'
 ```
 You should also change alarm rule query sentence
-### 22 Controller Configuration For Congress
+### 22 Notification Configuration 
 
 > See https://docs.openstack.org/newton/config-reference/compute/config-options.html, https://docs.openstack.org/nova/14.0.7/notifications.html for details about Nova notify_on_state_change conguration.  
 > See https://docs.openstack.org/newton/config-reference/telemetry/samples/event_definitions.yaml.html for details about Ceilometer.  
 > See https://docs.openstack.org/aodh/latest/contributor/event-alarm.html, https://docs.openstack.org/aodh/latest/admin/telemetry-alarms.html#event-based-alarm, https://github.com/openstack/aodh/blob/master/aodh/notifier/rest.py for details about Aodh.
-
+> See https://lingxiankong.github.io/2017-07-04-ceilometer-notification.html for details about notification
+Usually, configuration should be done in all controller nodes 
 ```shell
-ssh heat-admin@192.0.2.x # ssh onto controller
+ssh heat-admin@192.0.2.x # ssh onto every controller
 sudo -i # root necessary for operations later
 ```
 
 #### 220 Nova
 
 ```shell
-vim /etc/nova/nova.conf
+# vim /etc/nova/nova.conf
 
 # ensure entries below
 notify_on_state_change=vm_and_task_state
@@ -446,6 +447,8 @@ topics=notifications
 ```
 
 #### 221 Ceilometer
+
+------event-------> ceilometer -----publish/notifier-------->
 
 ```shell
 vim /etc/ceilometer/event_pipeline.yaml
@@ -466,6 +469,13 @@ sinks:
             ‐ notifier://?topic=alarm.all
 ```
 
+add topic to ceilometer notifier
+```shell
+# vim /etc/ceilometer/ceilometer.conf
+[publisher_notifier]
+event_topic=event
+```
+restart ceilometer
 ```shell
 # restart ceilometer
 service openstack-ceilometer-notification restart
@@ -479,6 +489,7 @@ service openstack-ceilometer-central restart
 vim /etc/aodh/aodh.conf
 
 # by default the configurations are right; just ensure it
+# aodh will listen to the topic specified
 [listener]
 event_alarm_topic = alarm.all
 ```
@@ -521,15 +532,41 @@ Application Manager send request to Nova to migrate VMs when something wrong ins
 
 ```python
 #!/usr/bin/env python
+#!/usr/bin/env python
+
+# modify app route if necessary
+import argparse
+from flask import Flask
+from flask import request
+import json
+import os
+import time
+
+app = Flask(__name__)
+
+@app.route('/failure', methods=['POST'])
+def event_posted():
+    LOG.info('application manager notified at %s' % time.time())
+    LOG.info('received data = %s' % request.data)
+    d = json.loads(request.data)
+    return "OK"
+
+
+def get_args():
+    parser = argparse.ArgumentParser(description='Doctor Sample Consumer')
+    parser.add_argument('port', metavar='PORT', type=int, nargs='?',
+                        help='the port for consumer')
+    return parser.parse_args()
+
+
+def main():
+    args = get_args()
+    app.run(host="0.0.0.0", port=args.port)
+
+
+if __name__ == '__main__':
+    main()
 ```
-
-[Remain to be added]
-
-### 24 Tacker
-
-[Remain]
-
-
 ## 3 Pre-configuration For Cloudify&Clearwater Deployment 
 
 Before running the script, you need to put all the images you need in `~/images`. You could upload these files from your Jumphost or you could download them on your stack VM. Currently we put four cloud image files in the folder:
