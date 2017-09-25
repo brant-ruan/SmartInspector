@@ -1,3 +1,4 @@
+import argparse
 from datetime import datetime
 import json
 import os
@@ -35,14 +36,14 @@ class Alert(object):
 
     event_type = "compute.host.down"
 
-    def __init__(self):
+    def __init__(self,args):
 
         self.hostname = args.hostname
         print ("hostname:",self.hostname)
         self.ip_addr = socket.gethostbyname(self.hostname)
         print ("ip_addr",self.ip_addr)
 
-        auth=identity_auth.get_identity_auth()
+        auth=get_identity_auth()
         self.sess=session.Session(auth=auth)
         congress = client.Client(session=self.sess, service_type='policy')
         ds = congress.list_datasources()['results']
@@ -78,7 +79,15 @@ class Alert(object):
         requests.put(self.inspector_url, data=data, headers=headers)
         print ("alert send")
 
+def get_args():
+    parser = argparse.ArgumentParser(description='Doctor Sample Alert')
+    parser.add_argument('hostname', metavar='HOSTNAME', type=str, nargs='?',
+                           help='hostname of a down compute host')
+    return parser.parse_args()
+
 def main():
+    args=get_args()
+    alert = Alert(args)
     alert.report_error()
 
 if __name__ == '__main__':
