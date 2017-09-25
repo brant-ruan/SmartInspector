@@ -439,10 +439,12 @@ sudo -i # root necessary for operations later
 ```shell
 # vim /etc/nova/nova.conf
 
-# ensure entries below
+# ensure entries below,those should exist by default
 notify_on_state_change=vm_and_task_state
+
 [oslo_messaging_notifications]
 driver=messagingv2
+# add topic
 topics=notifications
 ```
 
@@ -469,7 +471,7 @@ sinks:
             ‐ notifier://?topic=alarm.all
 ```
 
-add topic to ceilometer notifier
+add topic to ceilometer publish notifier
 ```shell
 # vim /etc/ceilometer/ceilometer.conf
 [publisher_notifier]
