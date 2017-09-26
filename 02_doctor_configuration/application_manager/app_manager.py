@@ -1,27 +1,41 @@
+#!/usr/bin/env python
+#author : zangyuan
+#2017.9.26
+
 from flask import Flask 
 from flask import request
 import json
 import requests
 import logging
 import toml
+import os 
 
 
 
 CONFIG = read_config()
 
-def live_migrate(vm_instance_id,config):
+def live_migrate_via_rest(vm_instance_id,config):
     token = get_token(config)
     nova_action_url = config['NOVAURL'] + '/servers/' + instance_id +'/action'
     os_migrateLive = {'host':None,'block_migration':'auto'}
     payload = {'os-migrateLive':os_migrateLive}
     header = {'X-Auth-Token':token,'Content-Type':'application/json'}
     requests.post(nova_action_url,data = json.dumps(payload),headers = header)
+
+
+def live_migrate_via_cmd(vm_instance_id,config):
+    pass
     
     
 
 
 def evacuate():
     pass 
+
+
+def notify():
+    pass
+
 
 
 def get_vm_instance_id(alarm_data):
