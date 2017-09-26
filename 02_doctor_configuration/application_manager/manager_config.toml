@@ -1,0 +1,4 @@
+OS_USERNAME = "admin"
+OS_PASSWORD = "FZKueDaeuZ72nuDHXjmzfBkzD"
+KEYSTONEURL = "http://192.0.2.9:35357/v2.0"
+NOVAURL = ""
