@@ -23,8 +23,8 @@ def live_migrate_via_rest(vm_instance_id,config):
     requests.post(nova_action_url,data = json.dumps(payload),headers = header)
 
 
-def live_migrate_via_cmd(vm_instance_id,config):
-    pass
+def live_migrate_via_cmd(vm_instance_id,target_host_id):
+    os.system("source overcloudrc && nova live-migration "+vm_instance_id+" "+target_host_id)
     
     
 
@@ -88,7 +88,7 @@ def listen():
     if vm_instance_id != None:
         print "vm instance id : "+vm_instance_id+" need to be migrated!"
         logging.warn("vm instance id : "+vm_instance_id+" need to be migrated!")
-        live_migrate(vm_instance_id,CONFIG)
+        live_migrate_via_rest(vm_instance_id,CONFIG)
         logging.warn("manager execute live_migration on vm_instance_id : "+vm_instance_id)
         return "success"
 
