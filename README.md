@@ -1,5 +1,3 @@
-[TOC]
-
 # Smart Inspector 
 This is our OPNFV doctor project experimental configuration tutorials
 
